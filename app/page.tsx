@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div>
+    <div id="wd-home">
       <h1>Labs</h1>
       <ul>
         <li>
