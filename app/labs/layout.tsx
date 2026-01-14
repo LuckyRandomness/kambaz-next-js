@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import TOC from "./TOC"
 
-export default function LabsLayout({ children }):
-    Readonly<{ children: ReactNode }> {
+export default function LabsLayout({ children }:
+    Readonly<{ children: ReactNode }>) {
     return (
         <table>
             <tbody>
@@ -14,5 +14,4 @@ export default function LabsLayout({ children }):
                 </tr>
             </tbody>
         </table>
-    );
-}
+    );}
