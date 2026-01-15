@@ -15,6 +15,11 @@ export default function Home() {
           <Link href="./labs/lab3">Lab 3: Javascript Fundamentals</Link>
         </li>
       </ul>
+      <ul>
+        <li>
+          <Link href = "./kambaz">Kambaz</Link>
+        </li>
+      </ul>
     </div>
   );
 }
