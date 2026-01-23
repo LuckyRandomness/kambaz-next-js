@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div id="wd-home">
-      <h1>Labs</h1>
+      <h1>Home</h1>
       <ul>
         <li>
           <Link href="./labs/lab1">Lab 1: HTML Examples</Link>
