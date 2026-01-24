@@ -1,4 +1,4 @@
-export default function couses() {
+export default function courses() {
     return(
         <div>
             <h1>Courses</h1>
