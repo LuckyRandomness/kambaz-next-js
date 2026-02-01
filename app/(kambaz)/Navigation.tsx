@@ -2,7 +2,6 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { IoCalendarOutline } from "react-icons/io5";
 import { LiaBookSolid, LiaCogSolid } from "react-icons/lia";
 import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
-import { IconContext } from "react-icons";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import Link from "next/link";
 export default function KambazNavigation() {
@@ -20,36 +19,36 @@ export default function KambazNavigation() {
                 </Link>
             </ListGroupItem>
             <ListGroupItem className="border-0 bg-black text-center">
-                <Link href="/dashboard" id="wd-dashboard-link" className="text-red text-decoration-none">
-                    <AiOutlineDashboard className="fs-1 text-red" />
+                <Link href="/dashboard" id="wd-dashboard-link" className="link-danger text-decoration-none">
+                    <AiOutlineDashboard className="fs-1" />
                     <br />
                     Dashboard
                 </Link>
             </ListGroupItem>
             <ListGroupItem className="border-0 bg-black text-center">
-                <Link href="/dashboard" id="wd-course-link" className="text-white text-decoration-none">
-                    <LiaBookSolid className="fs-1 text-white" />
+                <Link href="/dashboard" id="wd-course-link" className="link-danger text-decoration-none">
+                    <LiaBookSolid className="fs-1" />
                     <br />
                     Courses
                 </Link>
             </ListGroupItem>
             <ListGroupItem className="border-0 bg-black text-center">
-                <Link href="/calendar" id="wd-calendar-link" className="text-white text-decoration-none">
-                    <IoCalendarOutline className="fs-1 text-white" />
+                <Link href="/calendar" id="wd-calendar-link" className="link-danger text-decoration-none text-red">
+                    <IoCalendarOutline className="fs-1" />
                     <br />
                     Calendar
                 </Link>
             </ListGroupItem>
             <ListGroupItem className="border-0 bg-black text-center">
-                <Link href="/inbox" id="wd-inbox-link" className="text-white text-decoration-none">
-                    <FaInbox className="fs-1 text-white" />
+                <Link href="/inbox" id="wd-inbox-link" className="link-danger text-decoration-none">
+                    <FaInbox className="fs-1" />
                     <br />
                     Inbox
                 </Link>
             </ListGroupItem>
             <ListGroupItem className="border-0 bg-black text-center">
-                <Link href="/labs" id="wd-labs-link" className="text-white text-decoration-none">
-                    <LiaCogSolid className="fs-1 text-white" />
+                <Link href="/labs" id="wd-labs-link" className="link-danger text-decoration-none">
+                    <LiaCogSolid className="fs-1" />
                     <br />
                     Labs
                 </Link>
