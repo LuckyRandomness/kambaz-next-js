@@ -1,3 +1,4 @@
+'use client'
 import { Button, Col, Form, FormCheck, FormControl, FormLabel, FormSelect, InputGroup, Row } from "react-bootstrap";
 import FormRange from "react-bootstrap/esm/FormRange";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
