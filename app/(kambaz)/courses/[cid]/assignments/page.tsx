@@ -1,29 +1,59 @@
 import Link from "next/link";
+import AssignmentsControls from "./AssignmentsControls";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
+import { BsGripVertical } from "react-icons/bs";
+import { FaCaretDown } from "react-icons/fa6";
+import AssignmentControlButtons from "./[aid]/AssignmentControlButtons";
+import LessonControlButtons from "../modules/LessonControlButtons";
+import EntryButtonsLeft from "./EntryButtonsLeft";
 
 export default function Assignments() {
     return(
-        <div id="wd-assignments">
-            <input placeholder="Search for Assignments" id="wd-search-assignment"/>
-            <button id="wd-add-assignment-group">+ Group</button>
-            <button id="wd-add-assignment">+ Assignment</button>
-            <h3 id="wd-assignments-title">ASSIGNMENTS 40% of Totals <button>+</button> </h3>
-            <ul id="wd-assignment-list">
-                <li className="wd-assignment-list-item">
-                    <Link href="/courses/1234/assignments/123" className="wd-assignment-link">A1 - ENV + HTML</Link><br />
-                    Multiple Modules | <b>Not available until</b> May 6 at 12:00am | <br />
-                    <b>Due</b> May 13 at 11:59pm | 100 pts
-                </li>
-                <li className="wd-assignment-list-item">
-                    <Link href="/courses/1234/assignments/456" className="wd-assignment-link">A2 - CSS + BOOTSTRAP</Link><br />
-                    Multiple Modules | <b>Not available until</b> May 13 at 12:00am | <br />
-                    <b>Due</b> May 20 at 11:59pm | 100 pts
-                </li>
-                <li className="wd-assignment-list-item">
-                    <Link href="/courses/1234/assignments/789" className="wd-assignment-link">A3 - JAVASCRIPT + REACT</Link><br />
-                    Multiple Modules | <b>Not available until</b> May 20 at 12:00am | <br />
-                    <b>Due</b> May 27 at 11:59pm | 100 pts
-                </li>
-            </ul>
+        <div>
+            <AssignmentsControls /><br /><br /><br /><br />
+            <ListGroup className="rounded-0 w-auto" id="wd-assignments">
+                <ListGroupItem className="wd-assignment p-0 mb-5 fs-5 border-gray">
+                    <div className="wd-title p-3 ps-2 bg-secondary fs-6">
+                        <BsGripVertical className="fs-3" /> <FaCaretDown className="me-2" /> 
+                        <b>ASSIGNMENTS</b> <AssignmentControlButtons />
+                    </div>
+                    <ListGroup id="wd-assignment-entries rounded-0">
+                        <ListGroupItem className="wd-assignment-entry p-3 ps-1">
+                            <div className="d-flex flex-row justify-content-between align-items-center"> 
+                                <EntryButtonsLeft />
+                                <div className="flex-fill ps-3">
+                                    <Link href="/courses/1234/assignments/123" className="wd-assignment-link fs-5 text-black text-decoration-none bold">
+                                        <b>A1 - ENV + HTML</b></Link><br />
+                                        <div className="fs-6"><span className="text-danger"> Multiple Modules </span> | <b>Not available until</b> May 6 at 12:00am | <br />
+                                        <b>Due</b> May 13 at 11:59pm | 100 pts</div></div>
+                                <LessonControlButtons />
+                            </div>
+                        </ListGroupItem>
+                        <ListGroupItem className="wd-assignment-entry p-3 ps-1">
+                            <div className="d-flex flex-row justify-content-between align-items-center"> 
+                                <EntryButtonsLeft />
+                                <div className="flex-fill ps-3">
+                                    <Link href="/courses/1234/assignments/456" className="wd-assignment-link fs-5 text-black text-decoration-none bold">
+                                        <b>A2 - CSS + BOOTSTRAP</b></Link><br />
+                                        <div className="fs-6"><span className="text-danger"> Multiple Modules </span> | <b>Not available until</b> May 13 at 12:00am | <br />
+                                        <b>Due</b> May 20 at 11:59pm | 100 pts</div></div>
+                                <LessonControlButtons />
+                            </div>
+                        </ListGroupItem>
+                        <ListGroupItem className="wd-assignment-entry p-3 ps-1">
+                            <div className="d-flex flex-row justify-content-between align-items-center"> 
+                                <EntryButtonsLeft />
+                                <div className="flex-fill ps-3">
+                                    <Link href="/courses/1234/assignments/789" className="wd-assignment-link fs-5 text-black text-decoration-none bold">
+                                        <b>A3 - JAVASCRIPT + REACT</b></Link><br />
+                                        <div className="fs-6"><span className="text-danger"> Multiple Modules </span> | <b>Not available until</b> May 20 at 12:00am | <br />
+                                        <b>Due</b> May 27 at 11:59pm | 100 pts</div></div>
+                                <LessonControlButtons />
+                            </div>
+                        </ListGroupItem>
+                    </ListGroup>
+                </ListGroupItem>
+            </ListGroup>
         </div>
     );
 }

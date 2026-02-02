@@ -8,9 +8,9 @@ import { IconContext } from "react-icons";
 import Link from "next/link";
 export default function KambazNavigation() {
     return (
-        <ListGroup className="rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2" style={{ width: 110 }}
+        <ListGroup className="rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2" style={{ width: 111 }}
         id="wd-kambaz-navigation">
-            <ListGroupItem className="bg-black border-0 text-center" aria-current="true" as="a" href="https://www.northeastern.edu/" id="wd-neu-link" target="_blank">
+            <ListGroupItem className="bg-black border-0 text-center" as="a" href="https://www.northeastern.edu/" id="wd-neu-link" target="_blank">
                 <img src="/images/NEU.png" width="75px" alt="Northeastern University"/>
             </ListGroupItem>
             <ListGroupItem active className="border-0 bg-black text-center text-break">
@@ -21,9 +21,9 @@ export default function KambazNavigation() {
                 </Link>
             </ListGroupItem>
             <IconContext.Provider value={{ color:"rgb(181, 40, 40)" }}>
-                <ListGroupItem className="border-0 bg-black text-center text-break">
-                    <Link href="/dashboard" id="wd-dashboard-link" className="text-white text-decoration-none text-sta">
-                            <AiOutlineDashboard className="fs-1" />                    
+                <ListGroupItem className="border-0 bg-white text-center text-break">
+                    <Link href="/dashboard" id="wd-dashboard-link" className="text-danger text-decoration-none">
+                            <AiOutlineDashboard className="fs-1 text-danger" />                    
                         <br />
                         Dashboard
                     </Link>
@@ -36,7 +36,7 @@ export default function KambazNavigation() {
                     </Link>
                 </ListGroupItem>
                 <ListGroupItem className="border-0 bg-black text-center text-break">
-                    <Link href="/calendar" id="wd-calendar-link" className="text-white text-decoration-none text-red">
+                    <Link href="/calendar" id="wd-calendar-link" className="text-white text-decoration-none">
                         <IoCalendarOutline className="fs-1" />
                         <br />
                         Calendar
