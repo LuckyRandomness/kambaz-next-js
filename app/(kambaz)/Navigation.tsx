@@ -10,10 +10,10 @@ export default function KambazNavigation() {
     return (
         <ListGroup className="rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2" style={{ width: 110 }}
         id="wd-kambaz-navigation">
-            <ListGroupItem action active className="bg-black border-0 text-center" as="a" href="https://www.northeastern.edu/" id="wd-neu-link" target="_blank">
-                <img src="/images/NEU.png" width="50px" alt="Northeastern University"/>
+            <ListGroupItem className="bg-black border-0 text-center" aria-current="true" as="a" href="https://www.northeastern.edu/" id="wd-neu-link" target="_blank">
+                <img src="/images/NEU.png" width="75px" alt="Northeastern University"/>
             </ListGroupItem>
-            <ListGroupItem className="border-0 bg-black text-center text-break">
+            <ListGroupItem active className="border-0 bg-black text-center text-break">
                 <Link href="/account" id="wd-account-link" className="text-white text-decoration-none text-start" >
                 <FaRegCircleUser className="fs-1 text-white" />
                 <br />
