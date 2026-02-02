@@ -3,7 +3,7 @@ import AssignmentsControls from "./AssignmentsControls";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { BsGripVertical } from "react-icons/bs";
 import { FaCaretDown } from "react-icons/fa6";
-import AssignmentControlButtons from "./[aid]/AssignmentControlButtons";
+import AssignmentControlButtons from "./AssignmentControlButtons";
 import LessonControlButtons from "../modules/LessonControlButtons";
 import EntryButtonsLeft from "./EntryButtonsLeft";
 
