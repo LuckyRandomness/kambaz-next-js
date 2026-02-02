@@ -1,5 +1,5 @@
 'use client'
-import { Button, FormCheck, FormControl, FormLabel, FormSelect } from "react-bootstrap";
+import { Button, Col, FormCheck, FormControl, FormLabel, FormSelect, Row } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 
 export default function AssignmentEditor() {
@@ -17,29 +17,27 @@ export default function AssignmentEditor() {
                         Links to all relevant source code repositories
                 The Kanbas application should include a link to navigate back to the landing page."/><br /><br />
                 </Form.Group>
-                <div>
-                    <Form.Group className="d-flex">
-                        <FormLabel className="w-50 text-end pe-3" htmlFor="wd-points">Points</FormLabel>
-                        <div className="w-100"><FormControl id="wd-points" defaultValue="100"/></div>
-                    </Form.Group><br />
-                    <Form.Group className="d-flex">
-                        <FormLabel className="w-50 text-end pe-3" htmlFor="wd-assignment-group">Assignment Group</FormLabel>
-                        <div className="w-100">
-                        <FormSelect id="wd-assignment-group">
+                    <Row className="justify-content-center">
+                        <Col className="text-end"><FormLabel htmlFor="wd-points">Points</FormLabel></Col>
+                        <Col><FormControl id="wd-points" defaultValue="100"/></Col>
+                    </Row> <br />
+                    <Row className="justify-content-center">
+                        <Col className="text-end"><FormLabel htmlFor="wd-assignment-group">Assignment Group</FormLabel></Col>
+                        <Col><FormSelect id="wd-assignment-group">
                             <option value="ASSIGNMENTS">ASSIGNMENTS</option>
                             <option value="QUIZZES">QUIZZES</option>
-                        </FormSelect> </div>
-                    </Form.Group><br />
-                    <Form.Group className="d-flex">
-                        <FormLabel className="w-50 text-end pe-3" htmlFor="wd-display-grade-as">Display Grade as</FormLabel>
-                        <div className= "w-100"><FormSelect id="wd-display-grade-as">
+                        </FormSelect> </Col>
+                    </Row> <br />
+                    <Row className="justify-content-center">
+                        <Col className="text-end"><FormLabel htmlFor="wd-display-grade-as">Display Grade as</FormLabel></Col>
+                        <Col><FormSelect id="wd-display-grade-as">
                             <option value="PERCENTAGE">Percentage</option>
                             <option value="FRACTION">Fraction</option>
-                        </FormSelect> </div>
-                    </Form.Group><br />
-                    <Form.Group className="d-flex">
-                        <FormLabel className="w-50 text-end pe-3" htmlFor="wd-submission-type">Submission Type</FormLabel>
-                        <div className="w-100 border p-1 rounded">
+                        </FormSelect></Col>
+                    </Row><br />
+                    <Row className="justify-content-center">
+                        <Col className="text-end"><FormLabel htmlFor="wd-submission-type">Submission Type</FormLabel></Col>
+                        <Col className="border p-1 rounded">
                             <FormSelect id="wd-submission-type">
                                 <option value="ONLINE">ONLINE</option>
                                 <option value="OFFLINE">OFFLINE</option>
@@ -49,11 +47,11 @@ export default function AssignmentEditor() {
                             <FormCheck id="wd-chkbox-media-recordings" label="Media Recordings" name="online-entry-options"/> <br />
                             <FormCheck id="wd-chkbox-student-annotations" label="Student Annotations" name="online-entry-options"/> <br />
                             <FormCheck id="wd-chkbox-file-uploads" label="File Uploads" name="online-entry-options"/> <br />
-                        </div>
-                    </Form.Group><br />
-                    <Form.Group className="d-flex">
-                        <FormLabel className="w-50 text-end pe-3" htmlFor="wd-submission-type">Assign</FormLabel>
-                        <div className="w-100 border p-1 rounded">
+                        </Col>
+                    </Row><br />
+                    <Row className="justify-content-center">
+                        <Col className="text-end"><FormLabel htmlFor="wd-submission-type">Assign</FormLabel></Col>
+                        <Col className="border p-1 rounded">
                             <Form.Group>
                                 <FormLabel><b>Assign to</b></FormLabel>
                                 <FormControl id="wd-assign" defaultValue="Everyone"/>
@@ -72,9 +70,8 @@ export default function AssignmentEditor() {
                                     <FormControl type="datetime-local" />
                                 </Form.Group> <br />
                             </div>
-                        </div>
-                    </Form.Group><br />
-                </div>
+                        </Col>
+                    </Row><br />
             </Form>
             <hr/>
             <div className="d-flex flex-row justify-content-end">
@@ -84,28 +81,3 @@ export default function AssignmentEditor() {
         </div>
     );
 }
-
-{/*
-    <td align="right" valign="top">
-        <label htmlFor="wd-assign">Assign</label>
-    </td>
-    <td>
-        <label htmlFor="wd-assign">Assign to</label><br />
-        <input id="wd-assign" defaultValue={"Everyone"}/> <br/> <br />
-        <label htmlFor="wd-due">Due</label><br />
-        <input id="wd-due" defaultValue={"2024-05-13"}/> <br /> <br />
-        <table>
-            <thead>
-                <tr>
-                    <th><label htmlFor="wd-available-from">Available from</label></th>
-                    <th><label htmlFor="wd-until">Until</label></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input id="wd-available-from" type="date" defaultValue={"2024-05-06"}/></td>
-                    <td><input id="wd-until" type="date" defaultValue={"2024-05-20"}/></td>
-                </tr>
-            </tbody>
-        </table>
-    </td> */}

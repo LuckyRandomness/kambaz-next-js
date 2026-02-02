@@ -80,6 +80,7 @@ export default function Lab2() {
       <GridLayout />
       <Flex />
       <MediaQueriesDemo />
+      <Link href="/labs/lab2/tailwind" className="fs-4">Tailwind Labs Here!!!</Link> <br />
       <ReactIconsSampler />
       <BootstrapGrids />
       <ScreenSizeLabel />
