@@ -1,7 +1,7 @@
 import Link from "next/link";
 export default function CourseNavigation() {
     return (
-        <div id="wd-courses-navigation" className="wd list-group fs-5 rounded-0">
+        <div id="wd-courses-navigation" className="wd list-group fs-6 rounded-0">
             <Link href='/courses/1234/home' id="wd-course-home-link"
             className="list-group-item active border-0">Home</Link>
             <Link href="/courses/1234/modules" id="wd-course-modules-link"
