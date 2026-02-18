@@ -14,6 +14,6 @@ export default function Breadcrumb({ course }: { course: { name: string } | unde
  const pathname = usePathname();
  return (
    <span>
-     Course {course?.name} &gt; {capitalizeFirstLetter(pathname.split("/").pop())}
+     {course?.name} &gt; {capitalizeFirstLetter(pathname.split("/").pop())}
    </span>
 );}

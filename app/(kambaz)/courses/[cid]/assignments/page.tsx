@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import AssignmentsControls from "./AssignmentsControls";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
@@ -6,8 +7,12 @@ import { FaCaretDown } from "react-icons/fa6";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import LessonControlButtons from "../modules/LessonControlButtons";
 import EntryButtonsLeft from "./EntryButtonsLeft";
+import * as db from "../../../database";
+import { useParams } from "next/navigation";
 
 export default function Assignments() {
+    const { cid } = useParams();
+    const assignments = db.assignments;
     return(
         <div>
             <AssignmentsControls /><br /><br /><br /><br />
@@ -18,42 +23,17 @@ export default function Assignments() {
                         <b>ASSIGNMENTS</b> <AssignmentControlButtons />
                     </div>
                     <ListGroup id="wd-assignment-entries rounded-0">
-                        <ListGroupItem className="wd-assignment-entry p-3 ps-1">
-                            <div className="d-flex flex-row justify-content-between align-items-center"> 
-                                <EntryButtonsLeft />
-                                <div className="flex-fill ps-3">
-                                    <Link href="/courses/1234/assignments/123" className="wd-assignment-link fs-5 text-black text-decoration-none bold">
-                                        <b>A1 - ENV + HTML</b></Link><br />
-                                        <div className="fs-6"><span className="text-danger"> Multiple Modules </span> | <b>Not available until</b> May 6 at 12:00am | <br />
-                                        <b>Due</b> May 13 at 11:59pm | 100 pts</div></div>
-                                <LessonControlButtons />
-                            </div>
-                        </ListGroupItem>
-                        <ListGroupItem className="wd-assignment-entry p-3 ps-1">
-                            <div className="d-flex flex-row justify-content-between align-items-center"> 
-                                <EntryButtonsLeft />
-                                <div className="flex-fill ps-3">
-                                    <Link href="/courses/1234/assignments/456" className="wd-assignment-link fs-5 text-black text-decoration-none bold">
-                                        <b>A2 - CSS + BOOTSTRAP</b></Link><br />
-                                        <div className="fs-6"><span className="text-danger"> Multiple Modules </span> | <b>Not available until</b> May 13 at 12:00am | <br />
-                                        <b>Due</b> May 20 at 11:59pm | 100 pts</div></div>
-                                <LessonControlButtons />
-                            </div>
-                        </ListGroupItem>
-                        <ListGroupItem className="wd-assignment-entry p-3 ps-1">
-                            <div className="d-flex flex-row justify-content-between align-items-center"> 
-                                <EntryButtonsLeft />
-                                <div className="flex-fill ps-3">
-                                    <Link href="/courses/1234/assignments/789" className="wd-assignment-link fs-5 text-black text-decoration-none bold">
-                                        <b>A3 - JAVASCRIPT + REACT</b></Link><br />
-                                        <div className="fs-6"><span className="text-danger"> Multiple Modules </span> | <b>Not available until</b> May 20 at 12:00am | <br />
-                                        <b>Due</b> May 27 at 11:59pm | 100 pts</div></div>
-                                <LessonControlButtons />
-                            </div>
-                        </ListGroupItem>
-                    </ListGroup>
-                </ListGroupItem>
-            </ListGroup>
-        </div>
-    );
+                        {assignments
+                            .filter((asgn: any) => (asgn.course === cid))
+                            .map((asgn) => (
+                                <ListGroupItem className="wd-assignment-entry p-3 ps-1">
+                                    <div className="d-flex flex-row justify-content-between align-items-center"> 
+                                        <EntryButtonsLeft />
+                                        <div className="flex-fill ps-3">
+                                            <Link href={`/courses/${cid}/assignments/${asgn._id}`} className="wd-assignment-link fs-5 text-black text-decoration-none bold">
+                                                <b>{asgn.title}</b></Link><br />
+                                                <div className="fs-6"><span className="text-danger"> Multiple Modules </span> | <b>Not available until</b> May 6 at 12:00am | <br />
+                                                <b>Due</b> May 13 at 11:59pm | 100 pts</div></div>
+                                        <LessonControlButtons />
+</div> </ListGroupItem> ))} </ListGroup> </ListGroupItem> </ListGroup> </div>);
 }

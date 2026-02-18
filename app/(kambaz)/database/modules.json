@@ -1,0 +1,626 @@
+[
+  {
+    "_id": "M101",
+    "name": "Introduction to Rocket Propulsion",
+    "description": "Basic principles of rocket propulsion and rocket engines.",
+    "course": "RS101",
+    "lessons": [
+      {
+        "_id": "L101",
+        "name": "History of Rocketry",
+        "description": "A brief history of rocketry and space exploration.",
+        "module": "M101"
+      },
+      {
+        "_id": "L102",
+        "name": "Rocket Propulsion Fundamentals",
+        "description": "Basic principles of rocket propulsion.",
+        "module": "M101"
+      },
+      {
+        "_id": "L103",
+        "name": "Rocket Engine Types",
+        "description": "Overview of different types of rocket engines.",
+        "module": "M101"
+      }
+    ]
+  },
+  {
+    "_id": "M102",
+    "name": "Fuel and Combustion",
+    "description": "Understanding rocket fuel, combustion processes, and efficiency.",
+    "course": "RS101",
+    "lessons": [
+      {
+        "_id": "L201",
+        "name": "Rocket Fuel",
+        "description": "Overview of different types of rocket fuels.",
+        "module": "M102"
+      },
+      {
+        "_id": "L202",
+        "name": "Combustion Processes",
+        "description": "Understanding combustion processes and efficiency.",
+        "module": "M102"
+      },
+      {
+        "_id": "L203",
+        "name": "Combustion Instability",
+        "description": "Understanding combustion instability and mitigation.",
+        "module": "M102"
+      }
+    ]
+  },
+  {
+    "_id": "M103",
+    "name": "Nozzle Design",
+    "description": "Principles of rocket nozzle design and performance optimization.",
+    "course": "RS101",
+    "lessons": [
+      {
+        "_id": "L301",
+        "name": "Nozzle Design",
+        "description": "Overview of different types of rocket nozzles.",
+        "module": "M103"
+      },
+      {
+        "_id": "L302",
+        "name": "Nozzle Performance",
+        "description": "Understanding nozzle performance and efficiency.",
+        "module": "M103"
+      },
+      {
+        "_id": "L303",
+        "name": "Nozzle Optimization",
+        "description": "Optimizing nozzle design for specific applications.",
+        "module": "M103"
+      }
+    ]
+  },
+  {
+    "_id": "M201",
+    "name": "Fundamentals of Aerodynamics",
+    "description": "Basic aerodynamic concepts and fluid dynamics principles.",
+    "course": "RS102",
+    "lessons": [
+      {
+        "_id": "L101",
+        "name": "Flat Surfaces",
+        "description": "Understanding how air collides with walls.",
+        "module": "M201"
+      },
+      {
+        "_id": "L102",
+        "name": "Curves",
+        "description": "Understanding how air collides with curves.",
+        "module": "M201"
+      },
+      {
+        "_id": "L103",
+        "name": "Fluid Simulation",
+        "description": "Simulating air collisions in real time.",
+        "module": "M201"
+      }
+    ]
+  },
+  {
+    "_id": "M202",
+    "name": "Subsonic and Supersonic Flow",
+    "description": "Understanding subsonic and supersonic aerodynamic behaviors.",
+    "course": "RS102",
+    "lessons": [
+      {
+        "_id": "L201",
+        "name": "Subsonic Flow",
+        "description": "Understanding subsonic flow.",
+        "module": "M202"
+      },
+      {
+        "_id": "L202",
+        "name": "Supersonic Flow",
+        "description": "Understanding supersonic flow.",
+        "module": "M202"
+      },
+      {
+        "_id": "L203",
+        "name": "Nozzle vs. Diffuser",
+        "description": "Understanding differences in flow based on dispersion.",
+        "module": "M202"
+      }
+    ]
+  },
+  {
+    "_id": "M203",
+    "name": "Aerodynamic Heating",
+    "description": "Study of aerodynamic heating and thermal protection systems.",
+    "course": "RS102",
+    "lessons": [
+      {
+        "_id": "L301",
+        "name": "Air Pressure",
+        "description": "Understanding how air pressure effects heat.",
+        "module": "M203"
+      },
+      {
+        "_id": "L302",
+        "name": "Speed",
+        "description": "Understanding how speed effects heat.",
+        "module": "M203"
+      },
+      {
+        "_id": "L303",
+        "name": "Friction",
+        "description": "Understanding how friction effects heat.",
+        "module": "M203"
+      }
+    ]
+  },
+  {
+    "_id": "M301",
+    "name": "Spacecraft Structural Design",
+    "description": "Fundamentals of designing spacecraft structures and materials selection.",
+    "course": "RS103",
+    "lessons": [
+      {
+        "_id": "L101",
+        "name": "Space Launch System",
+        "description": "Understanding how spacecrafts are launched.",
+        "module": "M301"
+      },
+      {
+        "_id": "L102",
+        "name": "Launcher",
+        "description": "Understanding mechanics of propulsion.",
+        "module": "M301"
+      },
+      {
+        "_id": "L103",
+        "name": "Rockets",
+        "description": "Understanding full rocket systems.",
+        "module": "M301"
+      }
+    ]
+  },
+  {
+    "_id": "M302",
+    "name": "Orbital Mechanics",
+    "description": "Understanding orbital dynamics and mission planning.",
+    "course": "RS103",
+    "lessons": [
+      {
+        "_id": "L201",
+        "name": "Two-Body Orbits",
+        "description": "Understanding how two bodies orbit each other.",
+        "module": "M302"
+      },
+      {
+        "_id": "L202",
+        "name": "Equations",
+        "description": "Understanding common math equations for orbits.",
+        "module": "M302"
+      },
+      {
+        "_id": "L203",
+        "name": "N-body Orbits",
+        "description": "Understanding orbits with arbitrary bodies.",
+        "module": "M302"
+      }
+    ]
+  },
+  {
+    "_id": "M303",
+    "name": "Spacecraft Systems Engineering",
+    "description": "Overview of spacecraft systems and subsystems engineering.",
+    "course": "RS103",
+    "lessons": [
+      {
+        "_id": "L301",
+        "name": "Mechanical Design",
+        "description": "Understanding mechancis of spacecrafts.",
+        "module": "M303"
+      },
+      {
+        "_id": "L302",
+        "name": "Electrical Design",
+        "description": "Understanding electronics within spacecrafts.",
+        "module": "M303"
+      },
+      {
+        "_id": "L303",
+        "name": "Thermal Design",
+        "description": "Understanding heat within spacecrafts.",
+        "module": "M303"
+      }
+    ]
+  },
+  {
+    "_id": "M401",
+    "name": "Atomic Bonds",
+    "description": "Overview of atomic bonds necessary to organic life.",
+    "course": "RS104",
+    "lessons": [
+      {
+        "_id": "L101",
+        "name": "Covalent Bonds",
+        "description": "Understanding how electrons are shared.",
+        "module": "M401"
+      },
+      {
+        "_id": "L102",
+        "name": "Ionic Bonds",
+        "description": "Understanding how electrons are transferred.",
+        "module": "M401"
+      },
+      {
+        "_id": "L103",
+        "name": "Metallic Bonds",
+        "description": "Understanding how electrons are donated.",
+        "module": "M401"
+      }
+    ]
+  },
+  {
+    "_id": "M402",
+    "name": "Structures",
+    "description": "Overview of basic atomic structures.",
+    "course": "RS104",
+    "lessons": [
+      {
+        "_id": "L201",
+        "name": "Protons",
+        "description": "Understanding electrically positive particles.",
+        "module": "M402"
+      },
+      {
+        "_id": "L202",
+        "name": "Electrons",
+        "description": "Understanding electrically negative particles.",
+        "module": "M402"
+      },
+      {
+        "_id": "L203",
+        "name": "Neutrons",
+        "description": "Understanding electrically neutral particles.",
+        "module": "M402"
+      }
+    ]
+  },
+  {
+    "_id": "M403",
+    "name": "Alkanes",
+    "description": "Overview of necessary definitions.",
+    "course": "RS104",
+    "lessons": [
+      {
+        "_id": "L301",
+        "name": "Hydrogen and Carbon",
+        "description": "Understanding elements in an alkane.",
+        "module": "M403"
+      },
+      {
+        "_id": "L302",
+        "name": "Alkane structure",
+        "description": "Understanding the tree structure of an alkane.",
+        "module": "M403"
+      },
+      {
+        "_id": "L303",
+        "name": "Proportions",
+        "description": "Understanding ratio of hydrogen to carbon atoms.",
+        "module": "M403"
+      }
+    ]
+  },
+  {
+    "_id": "M501",
+    "name": "Organometallic Chemistry",
+    "description": "Compounds with metal-carbon bonds.",
+    "course": "RS105",
+    "lessons": [
+      {
+        "_id": "L101",
+        "name": "History",
+        "description": "History of organomettalic chemistry.",
+        "module": "M501"
+      },
+      {
+        "_id": "L102",
+        "name": "Scope",
+        "description": "Subspecialty areas of organometallic chemistry.",
+        "module": "M501"
+      },
+      {
+        "_id": "L103",
+        "name": "Reactions",
+        "description": "Understanding the most important organometallic chemical reactions.",
+        "module": "M501"
+      }
+    ]
+  },
+  {
+    "_id": "M502",
+    "name": "Cluster Chemistry",
+    "description": "Compounds with metal-metal bonds.",
+    "course": "RS105",
+    "lessons": [
+      {
+        "_id": "L201",
+        "name": "Stability",
+        "description": "Understanding which clusters are stable and which are not.",
+        "module": "M502"
+      },
+      {
+        "_id": "L202",
+        "name": "Synthesis",
+        "description": "Understanding how molecular beams form clusters.",
+        "module": "M502"
+      },
+      {
+        "_id": "L203",
+        "name": "Properties",
+        "description": "Understanding the chemical properties of clusters.",
+        "module": "M502"
+      }
+    ]
+  },
+  {
+    "_id": "M503",
+    "name": "Bioinorganic Chemistry",
+    "description": "Biomolecules that contain metals.",
+    "course": "RS105",
+    "lessons": [
+      {
+        "_id": "L301",
+        "name": "Composition in living organisms",
+        "description": "Understanding inorganic compounds in living beings.",
+        "module": "M503"
+      },
+      {
+        "_id": "L302",
+        "name": "History",
+        "description": "History of metals as treatment.",
+        "module": "M503"
+      },
+      {
+        "_id": "L303",
+        "name": "Themes",
+        "description": "Understanding of bioinorganic systems.",
+        "module": "M503"
+      }
+    ]
+  },
+  {
+    "_id": "M601",
+    "name": "Quantum Chemistry",
+    "description": "The study of quantum mechanics' effect on chemistry.",
+    "course": "RS106",
+    "lessons": [
+      {
+        "_id": "L101",
+        "name": "Electronic Structure",
+        "description": "Understanding the quantum state of an electron.",
+        "module": "M601"
+      },
+      {
+        "_id": "L102",
+        "name": "Valence bond theory",
+        "description": "Understanding pairwise interactions of atoms.",
+        "module": "M601"
+      },
+      {
+        "_id": "L103",
+        "name": "Molecular orbital theory",
+        "description": "Understanding delocalized electrons in a molecule.",
+        "module": "M601"
+      }
+    ]
+  },
+  {
+    "_id": "M602",
+    "name": "Chemical Thermodynamics",
+    "description": "Limits on energy in chemistry.",
+    "course": "RS106",
+    "lessons": [
+      {
+        "_id": "L201",
+        "name": "Chemical Reactions",
+        "description": "Understanding energy exchange between atoms.",
+        "module": "M602"
+      },
+      {
+        "_id": "L202",
+        "name": "Phase changes",
+        "description": "Understanding transitions between states of matter.",
+        "module": "M602"
+      },
+      {
+        "_id": "L203",
+        "name": "Three Laws of Thermodynamics",
+        "description": "Understanding the tenants of energy in atoms.",
+        "module": "M602"
+      }
+    ]
+  },
+  {
+    "_id": "M603",
+    "name": "Chemical Kinetics",
+    "description": "Type and speed of chemical reactions.",
+    "course": "RS106",
+    "lessons": [
+      {
+        "_id": "L301",
+        "name": "Reactant Nature",
+        "description": "Understanding the properties of individual substances.",
+        "module": "M603"
+      },
+      {
+        "_id": "L302",
+        "name": "Concentration",
+        "description": "Understanding how concentration affects reaction speed.",
+        "module": "M603"
+      },
+      {
+        "_id": "L303",
+        "name": "Catalysts",
+        "description": "Understanding how additives can effect chemical reaction speed.",
+        "module": "M603"
+      }
+    ]
+  },
+  {
+    "_id": "M701",
+    "name": "Elvish Languages",
+    "description": "Languages spoken by the elves of Middle-earth.",
+    "course": "RS107",
+    "lessons": [
+      {
+        "_id": "L101",
+        "name": "Quenya",
+        "description": "Understanding the language of the Elves in Valinor.",
+        "module": "M701"
+      },
+      {
+        "_id": "L102",
+        "name": "Sindarin",
+        "description": "Understanding the language of the Elves of Sindar.",
+        "module": "M701"
+      },
+      {
+        "_id": "L103",
+        "name": "Language construction",
+        "description": "Understanding the etymological tree of Elvish language.",
+        "module": "M701"
+      }
+    ]
+  },
+  {
+    "_id": "M702",
+    "name": "Mannish Languages",
+    "description": "Languages spoken by the men of Middle-earth.",
+    "course": "RS107",
+    "lessons": [
+      {
+        "_id": "L201",
+        "name": "Adunaic",
+        "description": "Understanding the language of Numenor.",
+        "module": "M702"
+      },
+      {
+        "_id": "L202",
+        "name": "Rohanese",
+        "description": "Understanding the language of the Rohan.",
+        "module": "M702"
+      },
+      {
+        "_id": "L203",
+        "name": "Westron",
+        "description": "Understanding the common language of Middle-earth.",
+        "module": "M702"
+      }
+    ]
+  },
+  {
+    "_id": "M703",
+    "name": "Misc. Languages",
+    "description": "Additional Middle-earth languages.",
+    "course": "RS107",
+    "lessons": [
+      {
+        "_id": "L301",
+        "name": "Dwarvish",
+        "description": "Understanding the language spoken by dwarves.",
+        "module": "M703"
+      },
+      {
+        "_id": "L302",
+        "name": "Entish",
+        "description": "Understanding the language spoken by Ents.",
+        "module": "M703"
+      },
+      {
+        "_id": "L303",
+        "name": "Black Speech",
+        "description": "Understanding the language created by Sauron.",
+        "module": "M703"
+      }
+    ]
+  },
+  {
+    "_id": "M801",
+    "name": "Wizard-Elf Diplomacy",
+    "description": "Languages spoken by the elves of Middle-earth.",
+    "course": "RS108",
+    "lessons": [
+      {
+        "_id": "L101",
+        "name": "Vs. Morgoth",
+        "description": "Understanding the early wizard-elf alliance.",
+        "module": "M801"
+      },
+      {
+        "_id": "L102",
+        "name": "The White Council",
+        "description": "Understanding the pre-Sauron alliance.",
+        "module": "M801"
+      },
+      {
+        "_id": "L103",
+        "name": "Sauron's defeat",
+        "description": "Understanding the absence of wizards.",
+        "module": "M801"
+      }
+    ]
+  },
+  {
+    "_id": "M802",
+    "name": "Elf-Man Diplomacy",
+    "description": "Languages spoken by the men of Middle-earth.",
+    "course": "RS108",
+    "lessons": [
+      {
+        "_id": "L201",
+        "name": "Pre-Rings",
+        "description": "Understanding elf-man relations before the Rings.",
+        "module": "M802"
+      },
+      {
+        "_id": "L202",
+        "name": "Rings",
+        "description": "Understanding the balance between the three and the nine.",
+        "module": "M802"
+      },
+      {
+        "_id": "L203",
+        "name": "Assisting Frodo",
+        "description": "Understanding why the elves assisted Frodo.",
+        "module": "M802"
+      }
+    ]
+  },
+  {
+    "_id": "M803",
+    "name": "Man-Wizard Diplomacy",
+    "description": "Understanding man-wizard diplomacy.",
+    "course": "RS108",
+    "lessons": [
+      {
+        "_id": "L301",
+        "name": "Kashaka",
+        "description": "Understanding Alatar saving the men.",
+        "module": "M803"
+      },
+      {
+        "_id": "L302",
+        "name": "The Alliance",
+        "description": "Understanding the alliance between wizards and men.",
+        "module": "M803"
+      },
+      {
+        "_id": "L303",
+        "name": "War of the Gem",
+        "description": "Understanding how Kashaka was defeated.",
+        "module": "M803"
+      }
+    ]
+  }
+]
