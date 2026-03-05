@@ -29,5 +29,4 @@ export default function Lab4() {
       <ObjectStateVariable/>
       <ArrayStateVariable/>
       <ParentStateComponent/>
-      <UrlEncoding/>
 <hr/></div>);}
