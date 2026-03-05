@@ -16,7 +16,7 @@ export default function BootstrapLists() {
             </div>
             <div id="wd-css-hyperlink-list">
                 <h3>Favorite books</h3>
-                <ListGroup>
+                <ListGroup className="list-group-numbered">
                     <ListGroupItem   action active href="https://en.wikipedia.org/wiki/Dune_(novel)">
                     Dune
                     </ListGroupItem>
