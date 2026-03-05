@@ -10,24 +10,31 @@ import ObjectStateVariable from "./ObjectStateVariable";
 import ArrayStateVariable from "./ArrayStateVariable";
 import ParentStateComponent from "./ParentStateComponent";
 import UrlEncoding from "./url-encoding/query-parameters";
+import ReduxExamples from "./redux/page";
+import store from "./store";
+import { Provider } from "react-redux";
+import TodoList from "./redux/todos/TodoList";
 
 export default function Lab4() {
   function sayHello() {
     alert("Hello!");
   }
   return (
-    <div id="wd-lab1">
-      <h2>Lab 4</h2>
-      <h3>Changing States</h3>
-      <ClickEvent/>
-      <PassingDataOnEvent/>
-      <PassingFunctions theFunction={sayHello}/>
-      <Counter/>
-      <BooleanStateVariables/>
-      <StringStateVariables/>
-      <DateStateVariable/>
-      <ObjectStateVariable/>
-      <ArrayStateVariable/>
-      <ParentStateComponent/>
-      <UrlEncoding/>
-<hr/></div>);}
+    <Provider store={store}>
+      <div id="wd-lab1">
+        <h2>Lab 4</h2>
+        <h3>Changing States</h3>
+        <ClickEvent/>
+        <PassingDataOnEvent/>
+        <PassingFunctions theFunction={sayHello}/>
+        <Counter/>
+        <BooleanStateVariables/>
+        <StringStateVariables/>
+        <DateStateVariable/>
+        <ObjectStateVariable/>
+        <ArrayStateVariable/>
+        <ParentStateComponent/>
+        <UrlEncoding/>
+        <ReduxExamples/> 
+        <TodoList/>
+<hr/></div></Provider>);}
