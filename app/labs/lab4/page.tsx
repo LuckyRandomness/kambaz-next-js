@@ -14,6 +14,7 @@ import ReduxExamples from "./redux/page";
 import store from "./store";
 import { Provider } from "react-redux";
 import TodoList from "./redux/todos/TodoList";
+import Link from "next/link";
 
 export default function Lab4() {
   function sayHello() {
@@ -37,4 +38,5 @@ export default function Lab4() {
         <UrlEncoding/>
         <ReduxExamples/> 
         <TodoList/>
+        <Link href="./lab4/redux/react-context">React Context Examples</Link>
 <hr/></div></Provider>);}
