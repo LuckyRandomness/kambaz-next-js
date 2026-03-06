@@ -6,10 +6,10 @@ import { createContext, ReactNode, useContext, useState } from "react";
 interface TodosContextState {
     todos: { id: string, title: string }[],
     todo: { id: string, title: string },
-    addTodo: () => void,
-    deleteTodo: () => void,
-    updateTodo: () => void,
-    setTodo: () => void,
+    addTodo: (todo: { id: string, title: string }) => void,
+    deleteTodo: (id: string) => void,
+    updateTodo: (todo: { id: string, title: string }) => void,
+    setTodo: (todo: { id: string, title: string }) => void,
 }
 
 //create context
@@ -24,10 +24,10 @@ export const TodosProvider = ({ children } : { children: ReactNode }) => {
     ]);
     const [todo, setTodoState] = useState({ id: "-1", title: "Learn Mongo" });
 
-    const addTodo = () => setTodos([...todos, { title: todo.title, id: new Date().getTime().toString() }]);
-    const deleteTodo = () => setTodos(todos.filter((todo) => todo.id !== todo.id));
-    const setTodo = () => setTodoState({ id: "-1", title: "New" });
-    const updateTodo = () => setTodos(todos.map((item) => item.id === item.id ? item : item));
+    const addTodo = (todo: { id: string, title: string }) => setTodos([...todos, { title: todo.title, id: new Date().getTime().toString() }]);
+    const deleteTodo = (id: string) => setTodos(todos.filter((todo) => todo.id !== id));
+    const setTodo = (todo: { id: string, title: string }) => setTodoState({ id: todo.id, title: todo.title });
+    const updateTodo = (todo: { id: string, title: string }) => setTodos(todos.map((item) => item.id === todo.id ? todo : item));
 
     const value: TodosContextState = {
         todos,

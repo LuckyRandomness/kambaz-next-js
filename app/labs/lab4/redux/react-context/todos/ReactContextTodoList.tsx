@@ -1,8 +1,6 @@
 "use client";
-import { ListGroup } from "react-bootstrap";
+import { Button, FormControl, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useTodos } from "./todosContext";
-import TodoForm from "../../todos/TodoForm";
-import TodoItem from "../../todos/TodoItem";
 
 export default function TodosContext() {
     const { todos, todo, addTodo, deleteTodo, setTodo, updateTodo } = useTodos()!;
@@ -11,9 +9,24 @@ export default function TodosContext() {
         <div>
       <h2>Todo List</h2>
       <ListGroup>
-        <TodoForm />
+        <ListGroupItem className="d-flex justify-content-between">
+            <FormControl value={todo.title}
+            onChange={(e) => setTodo({...todo, title: e.target.value })}/>
+            <Button onClick={() => updateTodo(todo)}
+                    variant="warning" id="wd-update-todo-click" className="m-1"> Update </Button>
+            <Button variant="success" onClick={() => addTodo(todo)}
+                    id="wd-add-todo-click" className="m-1"> Add </Button>
+        </ListGroupItem>
         {todos.map((todo: any) => (
-            <TodoItem todo={todo} />
+            <ListGroupItem className="d-flex justify-content-between" key={todo.id}>
+                    {todo.title}
+                    <div>
+                        <Button className="m-1" onClick={() => setTodo(todo)}
+                                id="wd-set-todo-click"> Edit </Button>
+                        <Button variant="danger" className="m-1" onClick={() => deleteTodo(todo.id)}
+                                id="wd-delete-todo-click"> Delete </Button>
+                    </div>
+            </ListGroupItem>
         ))}
       </ListGroup><hr/>
 </div>

@@ -38,5 +38,6 @@ export default function Lab4() {
         <UrlEncoding/>
         <ReduxExamples/> 
         <TodoList/>
-        <Link href="./lab4/redux/react-context">React Context Examples</Link>
+        <Link href="./lab4/redux/react-context">React Context Examples</Link> <hr />
+        <Link href="./lab4/zustand">Zustand Examples</Link>
 <hr/></div></Provider>);}
