@@ -9,12 +9,14 @@ import { RootState } from "../store";
 import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, FormControl, Row } from "react-bootstrap";
 export default function Dashboard(){
     const { courses } = useSelector((state: RootState) => state.coursesReducer);
+    const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const dispatch = useDispatch();
     const [course, setCourse] = useState<any> ({
         _id: "0", name: "New Course", number: "New Number",
         startDate: "2023-09-10", endDate: "2023-12-15",
         image: "/images/reactjs.jpg", description: "New Description"
     });
+    const { enrollments } = db;
     return(
         <div id="wd-dashboard">
             <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
@@ -34,7 +36,13 @@ export default function Dashboard(){
                 <hr />
                 <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2> <hr />
                 <Row xs={1} md={5} className="g-4">
-                    {courses.map((course) => (
+                    {courses.filter((course) =>
+                        enrollments.some(
+                            (enrollment) =>
+                            enrollment.user ===  currentUser._id &&
+                            enrollment.course === course._id
+                            ))
+                    .map((course) => (
                         <Col className="wd-dashboard-course" style={{ width: "300px" }}>
                             <Card>
                                 <Link href={`/courses/${course._id}/home`} 
