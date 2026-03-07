@@ -50,7 +50,7 @@ export default function Modules() {
               <ListGroup className="wd-lessons rounded-0">
                 {module.lessons.map((lesson: any) => (
                   <ListGroupItem className="wd-lesson p-3 ps-1">
-                    <BsGripVertical className="me-2 fs-3" /> {lesson.name} <LessonControlButtons /> </ListGroupItem>
+                    <BsGripVertical className="me-2 fs-3" /> {lesson.name} </ListGroupItem>
                 ))}</ListGroup>)}</ListGroupItem>))}</ListGroup>
     </div>
 );}

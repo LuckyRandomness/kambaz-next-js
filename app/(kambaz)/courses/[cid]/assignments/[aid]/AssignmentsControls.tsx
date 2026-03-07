@@ -10,7 +10,8 @@ export default function AssignmentsControls() {
                 <InputGroupText><CiSearch /></InputGroupText>
                 <FormControl placeholder="Search..."/>
             </InputGroup>
-            <Button variant="danger" size="lg" className="me-1 float-end" id="wd-assignment-btn">
+            <Button
+            variant="danger" size="lg" className="me-1 float-end" id="wd-assignment-btn">
                 <BsPlus className="fs-3" /> Assignment
             </Button>
             <Button variant="secondary" size="lg" className="me-1 float-end" id="wd-group-btn">
