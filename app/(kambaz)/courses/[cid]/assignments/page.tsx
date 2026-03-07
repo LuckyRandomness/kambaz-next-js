@@ -5,7 +5,7 @@ import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { BsGripVertical } from "react-icons/bs";
 import { FaCaretDown } from "react-icons/fa6";
 import AssignmentControlButtons from "./AssignmentControlButtons";
-import LessonControlButtons from "../modules/LessonControlButtons";
+import LessonControlButtons from "./LessonControlButtons";
 import EntryButtonsLeft from "./EntryButtonsLeft";
 import { useParams } from "next/navigation";
 import { addAssignment, editAssignment, updateAssignment, deleteAssignment } from "./reducer";
@@ -37,8 +37,8 @@ export default function Assignments() {
                                         <div className="flex-fill ps-3">
                                             <Link href={`/courses/${cid}/assignments/${asgn._id}`} className="wd-assignment-link fs-5 text-black text-decoration-none bold">
                                                 <b>{asgn.title}</b></Link><br />
-                                                <div className="fs-6"><span className="text-danger"> Multiple Modules </span> | <b>Not available until</b> May 6 at 12:00am | <br />
-                                                <b>Due</b> May 13 at 11:59pm | 100 pts</div></div>
+                                                <div className="fs-6"><span className="text-danger"> Multiple Modules </span> | <b>Not available until</b> {asgn.from} | <br />
+                                                <b>Due</b> {asgn.due} | {asgn.points} pts</div></div>
                                         <LessonControlButtons assignmentId={asgn._id} deleteAssignment={(assignmentId) => dispatch(deleteAssignment(assignmentId))} />
 </div> </ListGroupItem> ))} </ListGroup> </ListGroupItem> </ListGroup> </div>);
 }

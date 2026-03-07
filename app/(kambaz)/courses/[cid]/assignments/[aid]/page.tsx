@@ -4,27 +4,32 @@ import Form from 'react-bootstrap/Form';
 import * as db from "../../../../database";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { updateAssignment } from "../reducer";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/app/(kambaz)/store";
 
 export default function AssignmentEditor() {
     const { cid, aid } = useParams();
-    const asgn = db.assignments.find((asg) => (asg._id === aid));
-    return(
+    const { assignments } = useSelector((state: RootState) => state.assignmentReducer)
+    const dispatch = useDispatch();
+    const firstAsgn = assignments.find((asg) => (asg._id === aid));
+    const [asgn, setAsgn] = useState<any>({...firstAsgn});
+    
+    return (
         <div id="wd-assignments-editor">
             <Form>
                 <Form.Group>
                     <FormLabel htmlFor="wd-name">Assignment Name</FormLabel><br />
-                    <FormControl id="wd-name" defaultValue={asgn?.title} /><br />
-                    <FormControl as="textarea" rows={5} defaultValue="The assignment is available online. 
-                        Submit a link to the landing page of your Web application running on Netlify.
-                        The landing page should include the following: Your full name and section Links to each of the lab assignments
-                        Links to each of the lab assignments
-                        Links to the Kanbas application
-                        Links to all relevant source code repositories
-                The Kanbas application should include a link to navigate back to the landing page."/><br /><br />
+                    <FormControl id="wd-name" defaultValue={asgn?.title} 
+                    onChange={(e) => setAsgn({ ...asgn, title: e.target.value})}/><br />
+                    <FormControl as="textarea" rows={5} defaultValue= {asgn.description}
+                    onChange={(e) => setAsgn({ ...asgn, description: e.target.value})}/><br /><br />
                 </Form.Group>
                     <Row className="justify-content-center">
                         <Col className="text-end"><FormLabel htmlFor="wd-points">Points</FormLabel></Col>
-                        <Col><FormControl id="wd-points" defaultValue="100"/></Col>
+                        <Col><FormControl id="wd-points" defaultValue="100"
+                        onChange={(e) => setAsgn({ ...asgn, points: e.target.value })}/></Col>
                     </Row> <br />
                     <Row className="justify-content-center">
                         <Col className="text-end"><FormLabel htmlFor="wd-assignment-group">Assignment Group</FormLabel></Col>
@@ -63,16 +68,19 @@ export default function AssignmentEditor() {
                             </Form.Group> <br />
                             <Form.Group>
                                 <FormLabel><b>Due</b></FormLabel>
-                                <FormControl type="datetime-local" value="2024-05-13T23:59"/>
+                                <FormControl type="datetime-local" value="2024-05-13T23:59"
+                                onChange={(e) => setAsgn({ ...asgn, due: e.target.value })}/>
                             </Form.Group> <br />
                             <div className="d-flex flex-row">
                                 <Form.Group>
                                     <FormLabel><b>Available from</b></FormLabel>
-                                    <FormControl type="datetime-local" value="2024-05-06T00:00"/>
+                                    <FormControl type="datetime-local" value="2024-05-06T00:00"
+                                    onChange={(e) => setAsgn({ ...asgn, from: e.target.value })}/>
                                 </Form.Group> <br />
                                 <Form.Group>
                                     <FormLabel><b>Until</b></FormLabel>
-                                    <FormControl type="datetime-local" />
+                                    <FormControl type="datetime-local" 
+                                    onChange={(e) => setAsgn({ ...asgn, until: e.target.value })}/>
                                 </Form.Group> <br />
                             </div>
                         </Col>
@@ -82,7 +90,8 @@ export default function AssignmentEditor() {
             <div className="d-flex flex-row justify-content-end">
                 <Link href={`/courses/${ cid }/assignments`}>
                     <Button variant="secondary" size="lg" className="me-1 float-end"> Cancel </Button>
-                    <Button variant="danger" size="lg" className="me-1 float-end"> Save </Button>
+                    <Button variant="danger" size="lg" className="me-1 float-end"
+                    onClick={() => dispatch(updateAssignment({ asgn }))}> Save </Button>
                 </Link>
             </div> 
         </div>

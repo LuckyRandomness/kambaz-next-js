@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import * as db from "../database";
-import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewCourse, deleteCourse, updateCourse, setCourses } from "../courses/reducer";
 import { RootState } from "../store";
