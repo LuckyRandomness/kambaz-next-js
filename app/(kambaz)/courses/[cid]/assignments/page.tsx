@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
-import AssignmentsControls from "./[aid]/AssignmentsControls";
+import AssignmentsControls from "./AssignmentsControls";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { BsGripVertical } from "react-icons/bs";
 import { FaCaretDown } from "react-icons/fa6";
-import AssignmentControlButtons from "./[aid]/AssignmentControlButtons";
+import AssignmentControlButtons from "./AssignmentControlButtons";
 import LessonControlButtons from "../modules/LessonControlButtons";
-import EntryButtonsLeft from "./[aid]/EntryButtonsLeft";
+import EntryButtonsLeft from "./EntryButtonsLeft";
 import { useParams } from "next/navigation";
 import { addAssignment, editAssignment, updateAssignment, deleteAssignment } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
