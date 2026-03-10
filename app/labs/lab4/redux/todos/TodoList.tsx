@@ -1,9 +1,9 @@
-import TodoForm from "./TodoForm";
-import TodoItem from "./TodoItem";
+import { useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import TodoForm from "./TodoForm";
+import TodoItem from "./TodoItem";
 import { RootState } from "../../store";
-
 export default function TodoList() {
   const { todos } = useSelector((state: RootState) => state.todosReducer);
   return (
@@ -11,8 +11,9 @@ export default function TodoList() {
       <h2>Todo List</h2>
       <ListGroup>
         <TodoForm />
-        {todos.map((todo: any) => (
-            <TodoItem todo={todo} />
+        {todos.map((todo) => (
+          <TodoItem
+            todo={todo} />
         ))}
       </ListGroup><hr/>
 </div>);}

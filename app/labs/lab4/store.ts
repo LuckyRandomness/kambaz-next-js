@@ -8,5 +8,5 @@ const store = configureStore({
                 counterReducer,
                 addReducer,
                 todosReducer }});
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>;
 export default store;
