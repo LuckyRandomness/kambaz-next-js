@@ -48,7 +48,7 @@ export default function Dashboard(){
                 <FormControl value={course.description} as="textarea" rows={3} 
                     onChange={(e) => setCourse( {...course, description: e.target.value })}/>
                 <hr /> </div>}
-                <h2 id="wd-dashboard-published">Published Courses</h2> <hr />
+                <h2 id="wd-dashboard-published">Published Courses ()</h2> <hr />
                 <Row xs={1} md={5} className="g-4">
                     {courses.filter((course) =>
                         enrollments.some(
@@ -61,7 +61,7 @@ export default function Dashboard(){
                         <Col className="wd-dashboard-course" style={{ width: "300px" }}>
                             <Card>
                                 <div className="wd-dashboard-course-link text-decoration-none text-dark">
-                                    <CardImg src={`/images/${course.name}.jpg`} variant="top" width="100%" height={160}/>
+                                    <CardImg src={course.image} variant="top" width="100%" height={160}/>
                                     <CardBody className="card-body">
                                         <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">{course.name}</CardTitle>
                                         <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>

@@ -16,7 +16,7 @@ export const useTodosState = create<TodosState>((set) => ({
     todos: [{ id: "1", title: "Learn React" },
         { id: "2", title: "Learn Node" },
     ],
-    addTodo: (todo) => set((state) => ({ todos: [...state.todos, { ...todo, id: uuidv4() }]})),
+    addTodo: (todo) => set((state) => ({ todos: [...state.todos, { ...todo, id: uuidv4(), }]})),
     deleteTodo: (id) => set((state) => ({ todos: state.todos.filter((todo) => todo.id !== id)})),
     setTodo: (todo) => set((state) => ({ todo: todo})),
     updateTodo: (todo) => set((state) => ({ todos: state.todos.map((item) => item.id === todo.id ? todo : item)})),
