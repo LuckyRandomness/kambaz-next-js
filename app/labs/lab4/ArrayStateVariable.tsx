@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Button, ListGroup, ListGroupItem } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
 export default function ArrayStateVariable() {
     const [array, setArray] = useState([1, 2, 3, 4]);
     const addElement = () => {
@@ -8,6 +10,7 @@ export default function ArrayStateVariable() {
     const deleteElement = (index: number) => {
         setArray(array.filter((item, i) => i !== index));
     };
+    const { todos } = useSelector((state: RootState) => state.todosReducer);
     return (
         <div>
             <ListGroup id="wd-array-state-variables">

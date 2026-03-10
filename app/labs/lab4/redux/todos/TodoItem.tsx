@@ -7,9 +7,12 @@ export default function TodoItem({ todo }: {
   
   const dispatch = useDispatch();
   return (
-    <ListGroupItem key={todo.id}>
-      <Button onClick={() => dispatch(deleteTodo(todo.id))}
-              id="wd-delete-todo-click"> Delete </Button>
-      <Button onClick={() => dispatch(setTodo(todo))}
-              id="wd-set-todo-click"> Edit </Button>
-      {todo.title}    </ListGroupItem>);}
+    <ListGroupItem key={todo.id} className="d-flex justify-content-between">
+      {todo.title}
+      <div>
+        <Button onClick={() => dispatch(setTodo(todo))}
+                id="wd-set-todo-click" className="me-2"> Edit </Button>
+        <Button variant="danger" onClick={() => dispatch(deleteTodo(todo.id))}
+                id="wd-delete-todo-click" className="me-2"> Delete </Button>
+      </div>
+      </ListGroupItem>);}
