@@ -8,14 +8,13 @@ import AssignmentControlButtons from "./AssignmentControlButtons";
 import LessonControlButtons from "./LessonControlButtons";
 import EntryButtonsLeft from "./EntryButtonsLeft";
 import { useParams } from "next/navigation";
-import { addAssignment, editAssignment, updateAssignment, deleteAssignment } from "./reducer";
+import { deleteAssignment } from ".";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
-import { useState } from "react";
 
 export default function Assignments() {
     const { cid } = useParams();
-    const [assignmentName, setAssignmentName] = useState("");
+    const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const { assignments } = useSelector((state: RootState) => state.assignmentReducer);
     const dispatch = useDispatch();
     return(
@@ -38,7 +37,7 @@ export default function Assignments() {
                                             <Link href={`/courses/${cid}/assignments/${asgn._id}`} className="wd-assignment-link fs-5 text-black text-decoration-none bold">
                                                 <b>{asgn.title}</b></Link><br />
                                                 <div className="fs-6"><span className="text-danger"> Multiple Modules </span> | <b>Not available until</b> {asgn.from} | <br />
-                                                <b>Due</b> {asgn.due} | {asgn.points} pts</div></div>
+                                                <b>Due</b> {asgn.due} | {asgn.points} pts</div></div>                                        
                                         <LessonControlButtons assignmentId={asgn._id} deleteAssignment={(assignmentId) => dispatch(deleteAssignment(assignmentId))} />
 </div> </ListGroupItem> ))} </ListGroup> </ListGroupItem> </ListGroup> </div>);
 }

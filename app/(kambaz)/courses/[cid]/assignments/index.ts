@@ -1,5 +1,6 @@
 import { assignments } from "@/app/(kambaz)/database"
 import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
     assignments: assignments
@@ -10,7 +11,7 @@ const assignmentsSlice = createSlice({
     reducers: {
         addAssignment: ( state, { payload: assignment }) => {
             const newAssignment: any = {
-                _id: assignment._id,
+                _id: uuidv4(),
                 title: assignment.title,
                 course: assignment.course,
                 from: assignment.from,
@@ -20,15 +21,16 @@ const assignmentsSlice = createSlice({
                 description: assignment.description,
             };
             state.assignments = [ ...assignments, newAssignment ] as any;
+            console.log(state.assignments.at(-1));
         },
         deleteAssignment: ( state, { payload: assignmentId }) => {
             state.assignments = state.assignments.filter(
                 (a: any) => a._id !== assignmentId
             );
         },
-        updateAssignment: ( state, { payload: assignment }) => {
+        updateAssignment: ( state, { payload: asgn }) => {
             state.assignments = state.assignments.map(
-                (a: any) => assignment._id === a._id ? assignment : a
+                (a: any) => asgn._id === a._id ? asgn : a
             ) as any;
         },
         editAssignment: ( state, { payload: assignmentId }) => {

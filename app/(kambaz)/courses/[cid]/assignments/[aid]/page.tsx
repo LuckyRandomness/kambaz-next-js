@@ -1,11 +1,10 @@
 'use client'
 import { Button, Col, FormCheck, FormControl, FormLabel, FormSelect, Row } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
-import * as db from "../../../../database";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { updateAssignment } from "../reducer";
-import { useState } from "react";
+import { updateAssignment, addAssignment } from "..";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
 
@@ -13,22 +12,41 @@ export default function AssignmentEditor() {
     const { cid, aid } = useParams();
     const { assignments } = useSelector((state: RootState) => state.assignmentReducer)
     const dispatch = useDispatch();
-    const firstAsgn = assignments.find((asg) => (asg._id === aid));
-    const [asgn, setAsgn] = useState<any>({...firstAsgn});
+    const firstAsgn = assignments.find((asg) => (asg._id === aid));    
+    const [asgn, setAsgn] = useState<any>({
+        "title": "New Assignment",
+        "description" : "NEW DESCRIPTION",
+        "course" : cid,
+    });
+
+    useEffect(() => {
+       if(aid !== 'new') {
+        setAsgn(firstAsgn);
+       }
+    }, [aid]);
+
+    const save = () => {
+        if(aid === 'new') {
+            dispatch(addAssignment(asgn));
+        } else {
+            dispatch(updateAssignment(asgn));
+        }
+    }
     
     return (
         <div id="wd-assignments-editor">
+            {aid}
             <Form>
                 <Form.Group>
                     <FormLabel htmlFor="wd-name">Assignment Name</FormLabel><br />
-                    <FormControl id="wd-name" defaultValue={asgn?.title} 
+                    <FormControl id="wd-name" value={asgn?.title} 
                     onChange={(e) => setAsgn({ ...asgn, title: e.target.value})}/><br />
-                    <FormControl as="textarea" rows={5} defaultValue= {asgn.description}
+                    <FormControl as="textarea" rows={5} value= {asgn.description}
                     onChange={(e) => setAsgn({ ...asgn, description: e.target.value})}/><br /><br />
                 </Form.Group>
                     <Row className="justify-content-center">
                         <Col className="text-end"><FormLabel htmlFor="wd-points">Points</FormLabel></Col>
-                        <Col><FormControl id="wd-points" defaultValue="100"
+                        <Col><FormControl id="wd-points" defaultValue={asgn?.points} type="number"
                         onChange={(e) => setAsgn({ ...asgn, points: e.target.value })}/></Col>
                     </Row> <br />
                     <Row className="justify-content-center">
@@ -64,22 +82,22 @@ export default function AssignmentEditor() {
                         <Col className="border p-1 rounded">
                             <Form.Group>
                                 <FormLabel><b>Assign to</b></FormLabel>
-                                <FormControl id="wd-assign" defaultValue="Everyone"/>
+                                <FormControl id="wd-assign" value="Everyone"/>
                             </Form.Group> <br />
                             <Form.Group>
                                 <FormLabel><b>Due</b></FormLabel>
-                                <FormControl type="datetime-local" value="2024-05-13T23:59"
+                                <FormControl type="datetime-local" value={asgn?.due}
                                 onChange={(e) => setAsgn({ ...asgn, due: e.target.value })}/>
                             </Form.Group> <br />
                             <div className="d-flex flex-row">
                                 <Form.Group>
                                     <FormLabel><b>Available from</b></FormLabel>
-                                    <FormControl type="datetime-local" value="2024-05-06T00:00"
+                                    <FormControl type="datetime-local" value={asgn?.from}
                                     onChange={(e) => setAsgn({ ...asgn, from: e.target.value })}/>
                                 </Form.Group> <br />
                                 <Form.Group>
                                     <FormLabel><b>Until</b></FormLabel>
-                                    <FormControl type="datetime-local" 
+                                    <FormControl type="datetime-local" value={asgn?.until}
                                     onChange={(e) => setAsgn({ ...asgn, until: e.target.value })}/>
                                 </Form.Group> <br />
                             </div>
@@ -91,7 +109,7 @@ export default function AssignmentEditor() {
                 <Link href={`/courses/${ cid }/assignments`}>
                     <Button variant="secondary" size="lg" className="me-1 float-end"> Cancel </Button>
                     <Button variant="danger" size="lg" className="me-1 float-end"
-                    onClick={() => dispatch(updateAssignment({ asgn }))}> Save </Button>
+                    onClick={() => save()}> Save </Button>
                 </Link>
             </div> 
         </div>

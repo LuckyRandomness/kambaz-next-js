@@ -2,15 +2,18 @@ import { Button, FormControl, InputGroup } from "react-bootstrap";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
 import { CiSearch } from "react-icons/ci";
 import { BsPlus } from "react-icons/bs";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export default function AssignmentsControls() {
+    const {cid} = useParams();
     return(
         <div id="wd-assignments-control" className="text-nowrap">
             <InputGroup className="float-start w-50">
                 <InputGroupText><CiSearch /></InputGroupText>
                 <FormControl placeholder="Search..."/>
             </InputGroup>
-            <Button
+            <Button href={`/courses/${cid}/assignments/new`}
             variant="danger" size="lg" className="me-1 float-end" id="wd-assignment-btn">
                 <BsPlus className="fs-3" /> Assignment
             </Button>
