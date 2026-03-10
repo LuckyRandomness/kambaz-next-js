@@ -22,7 +22,7 @@ export default function CoursesLayout(
     <hr />
     <div className="d-flex">
       <div className="d-none d-md-block">
-        {visible && <CourseNavigation id={cid}/>}
+        {visible && <CourseNavigation id={`${cid}`}/>}
       </div>
       <div className="flex-fill">
         {children}
