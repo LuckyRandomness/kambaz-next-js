@@ -1,6 +1,5 @@
 "use client"
 import { useState } from "react";
-import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewCourse, deleteCourse, updateCourse } from "../courses/reducer";
 import { addNewEnrollment, deleteEnrollment } from "./reducer";

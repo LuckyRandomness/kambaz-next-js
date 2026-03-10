@@ -13,13 +13,13 @@ export default function Profile() {
     if (!currentUser) return redirect("/account/signin");
     setProfile(currentUser);
   };
+  useEffect(() => {
+    fetchProfile();
+  }, []);
   const signout = () => {
     dispatch(setCurrentUser(null));
     redirect("/account/signin");
   };
-  useEffect(() => {
-    fetchProfile();
-  }, []);
   return (
     <div className="wd-profile-screen">
      <h3>Profile</h3>
