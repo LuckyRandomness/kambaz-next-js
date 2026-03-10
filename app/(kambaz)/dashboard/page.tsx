@@ -1,21 +1,33 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewCourse, deleteCourse, updateCourse } from "../courses/reducer";
 import { addNewEnrollment, deleteEnrollment } from "./reducer";
 import { RootState } from "../store";
 import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, FormControl, Row } from "react-bootstrap";
+import { redirect } from "next/navigation";
 export default function Dashboard(){
     const { courses } = useSelector((state: RootState) => state.coursesReducer);
-    const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const { enrollments } = useSelector((state: RootState) => state.enrollmentsReducer);
     const dispatch = useDispatch();
+
+    const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+    const [profile, setProfile] = useState<any>({});
+    const fetchProfile = () => {
+        if (!currentUser) return redirect("/account/signin");
+        setProfile(currentUser);
+      };
+      useEffect(() => {
+        fetchProfile();
+      }, []);
+
     const [course, setCourse] = useState<any> ({
         _id: "0", name: "New Course", number: "New Number",
         startDate: "2023-09-10", endDate: "2023-12-15",
         image: "/images/reactjs.jpg", description: "New Description"
     });
     const [allCourses, setAllCourses] = useState(false);
+
     return(
         <div id="wd-dashboard">
             <div className="d-flex justify-content-between">
@@ -23,7 +35,7 @@ export default function Dashboard(){
                 <Button onClick={() => setAllCourses(!allCourses)}>
                 Enrollments</Button></div> <hr />
             <div className="wd-dashboard-courses">
-                {(currentUser?.role === "FACULTY") && <div><h5>New Course
+                {(profile.role === "FACULTY") && <div><h5>New Course
                     <button className="btn btn-primary float-end"
                             id="wd-add-new-course-click"
                             onClick={() => dispatch(addNewCourse(course))} > Add </button>
@@ -41,7 +53,7 @@ export default function Dashboard(){
                     {courses.filter((course) =>
                         enrollments.some(
                             (enrollment) =>
-                            enrollment.user === currentUser?._id &&
+                            enrollment.user === profile._id &&
                             enrollment.course === course._id ||
                             allCourses
                             ))
@@ -55,7 +67,7 @@ export default function Dashboard(){
                                         <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
                                             {course.description}</CardText>
                                         <Button variant="primary" href={`/courses/${course._id}/home`}>Go</Button>
-                                        {(currentUser?.role === "FACULTY") && <div>
+                                        {(profile.role === "FACULTY") && <div>
                                         <Button onClick={(event) => {
                                             event.preventDefault();
                                             dispatch(deleteCourse(course._id));}}
@@ -70,13 +82,13 @@ export default function Dashboard(){
                                         Edit</Button></div>}
                                         {enrollments.some(
                                             (enrollment) =>
-                                            enrollment.user === currentUser?._id &&
+                                            enrollment.user === profile._id &&
                                             enrollment.course === course._id) ? 
                                         <Button className="btn btn-danger me-2 float-end"
                                             onClick={() => dispatch(deleteEnrollment(course._id))}>Unenroll</Button> : 
                                         <Button className="btn btn-success me-2 float-end"
                                             onClick={() => dispatch(addNewEnrollment({
-                                                user: currentUser?._id,
+                                                user: profile._id,
                                                 course: course._id,
                                             }))}>Enroll</Button>}
                                     </CardBody>
