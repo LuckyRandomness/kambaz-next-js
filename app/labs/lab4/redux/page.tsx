@@ -1,13 +1,14 @@
-"use client";
-import AddRedux from "./AddRedux/index";
-import CounterRedux from "./CounterRedux/index";
+import CounterRedux from "./CounterRedux";
+import HelloRedux from "./hello";
+import AddRedux from "./AddRedux";
 
 export default function ReduxExamples() {
  return (
    <div>
      <h2>Redux Examples</h2>
-     <AddRedux />
+     <HelloRedux />
      <CounterRedux />
+     <AddRedux />
    </div>
  );
 }
