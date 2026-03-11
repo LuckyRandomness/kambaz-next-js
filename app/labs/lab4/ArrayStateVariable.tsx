@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { Button, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useSelector } from "react-redux";
