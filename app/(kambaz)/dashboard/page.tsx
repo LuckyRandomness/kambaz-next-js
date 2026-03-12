@@ -19,7 +19,7 @@ export default function Dashboard(){
       };
       useEffect(() => {
         fetchProfile();
-        console.log(currentUser?.firstName);
+        //console.log(currentUser?.firstName);
       }, []);
 
     const [course, setCourse] = useState<any> ({
