@@ -19,10 +19,10 @@ export default function Assignments() {
     const { assignments } = useSelector((state: RootState) => state.assignmentReducer);
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (!currentUser) {console.log("empty")};
         console.log(currentUser?.firstName);
-    }, []);
+    }, []);*/
     return(
         <div>
             <AssignmentsControls /> <br /><br /><br /><br />
