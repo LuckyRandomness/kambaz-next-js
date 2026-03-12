@@ -6,6 +6,7 @@ import { addNewEnrollment, deleteEnrollment } from "./reducer";
 import { RootState } from "@/app/(kambaz)/store";
 import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, FormControl, Row } from "react-bootstrap";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 export default function Dashboard(){
     const { courses } = useSelector((state: RootState) => state.coursesReducer);
     const { enrollments } = useSelector((state: RootState) => state.enrollmentsReducer);
@@ -67,7 +68,9 @@ export default function Dashboard(){
                                         <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">{course.name}</CardTitle>
                                         <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
                                             {course.description}</CardText>
-                                        <Button variant="primary" href={`/courses/${course._id}/home`}>Go</Button>
+                                        <Link href={`/courses/${course._id}/home`}>
+                                            <Button variant="primary">Go</Button>
+                                        </Link>
                                         {(profile.role === "FACULTY") && <div>
                                         <Button onClick={(event) => {
                                             event.preventDefault();
