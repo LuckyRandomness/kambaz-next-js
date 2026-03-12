@@ -8,7 +8,7 @@ import { useState } from "react";
 import { addModule, editModule, updateModule, deleteModule }
   from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../store";
+import { RootState } from "@/app/(kambaz)/store";
 
 export default function Modules() {
   const { cid } = useParams();

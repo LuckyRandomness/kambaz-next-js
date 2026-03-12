@@ -4,7 +4,7 @@ import CourseNavigation from "./Navigation";
 import { FaAlignJustify } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
-import { RootState } from "../../store";
+import { RootState } from "@/app/(kambaz)/store";
 
 export default function CoursesLayout(
   { children }: { children: ReactNode }) {

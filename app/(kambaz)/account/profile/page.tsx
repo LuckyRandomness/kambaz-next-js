@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../reducer";
-import { RootState } from "../../store";
+import { RootState } from "@/app/(kambaz)/store";
 import { Button, FormControl } from "react-bootstrap";
 export default function Profile() {
   const [profile, setProfile] = useState<any>({});

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewCourse, deleteCourse, updateCourse } from "../courses/reducer";
 import { addNewEnrollment, deleteEnrollment } from "./reducer";
-import { RootState } from "../store";
+import { RootState } from "@/app/(kambaz)/store";
 import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, FormControl, Row } from "react-bootstrap";
 import { redirect } from "next/navigation";
 export default function Dashboard(){
@@ -19,6 +19,7 @@ export default function Dashboard(){
       };
       useEffect(() => {
         fetchProfile();
+        console.log(currentUser?.firstName);
       }, []);
 
     const [course, setCourse] = useState<any> ({

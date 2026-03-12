@@ -1,6 +1,6 @@
 "use client";
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { RootState } from "@/app/(kambaz)/store";
 import { redirect } from "next/navigation";
 export default function AccountPage() {
  const { currentUser } = useSelector((state: RootState) => state.accountReducer);

@@ -11,12 +11,18 @@ import { useParams } from "next/navigation";
 import { deleteAssignment } from ".";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
+import { useEffect } from "react";
 
 export default function Assignments() {
     const { cid } = useParams();
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const { assignments } = useSelector((state: RootState) => state.assignmentReducer);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!currentUser) {console.log("empty")};
+        console.log(currentUser?.firstName);
+    }, []);
     return(
         <div>
             <AssignmentsControls /> <br /><br /><br /><br />

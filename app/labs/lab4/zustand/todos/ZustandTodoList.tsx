@@ -22,7 +22,6 @@ export default function ZustandTodos() {
             {todos.map((todo: any) => (
                 <ListGroupItem className="d-flex justify-content-between" key={todo.id}>
                         {todo.title}
-                        {todo.id}
                         <div>
                             <Button className="m-1" onClick={() => setTodo(todo)}
                                     id="wd-set-todo-click"> Edit </Button>
