@@ -18,9 +18,8 @@ export default function Dashboard(){
         if (!currentUser) return redirect("/account/signin");
         setProfile(currentUser);
       };
-      useEffect(() => {
+    useEffect(() => {
         fetchProfile();
-        //console.log(currentUser?.firstName);
       }, []);
 
     const [course, setCourse] = useState<any> ({
@@ -29,6 +28,7 @@ export default function Dashboard(){
         image: "/images/reactjs.jpg", description: "New Description"
     });
     const [allCourses, setAllCourses] = useState(false);
+    const [publishedCourses, setPublishedCourses] = useState(0);
 
     return(
         <div id="wd-dashboard">
@@ -50,7 +50,7 @@ export default function Dashboard(){
                 <FormControl value={course.description} as="textarea" rows={3} 
                     onChange={(e) => setCourse( {...course, description: e.target.value })}/>
                 <hr /> </div>}
-                <h2 id="wd-dashboard-published">Published Courses ()</h2> <hr />
+                <h2 id="wd-dashboard-published">Published Courses ({publishedCourses})</h2> <hr />
                 <Row xs={1} md={5} className="g-4">
                     {courses.filter((course) =>
                         enrollments.some(
@@ -63,38 +63,48 @@ export default function Dashboard(){
                         <Col className="wd-dashboard-course" style={{ width: "300px" }}>
                             <Card>
                                 <div className="wd-dashboard-course-link text-decoration-none text-dark">
-                                    <CardImg src={course.image} variant="top" width="100%" height={160}/>
+                                    <CardImg onLoad={() => setPublishedCourses(
+                                        courses.filter((c) =>
+                                        enrollments.some(
+                                            (enrollment) =>
+                                            enrollment.user === profile._id &&
+                                            enrollment.course === c._id ||
+                                            allCourses
+                                            )).length
+                                    )}
+                                    src={course.image} variant="top" width="100%" height={160}/>
                                     <CardBody className="card-body">
                                         <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">{course.name}</CardTitle>
                                         <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
                                             {course.description}</CardText>
                                         <Link href={`/courses/${course._id}/home`}>
-                                            <Button variant="primary">Go</Button>
+                                            <Button className="btn btn-primary m-2">
+                                            Go</Button>
                                         </Link>
-                                        {(profile.role === "FACULTY") && <div>
-                                        <Button onClick={(event) => {
-                                            event.preventDefault();
-                                            dispatch(deleteCourse(course._id));}}
-                                            id="wd-delete-course-click"
-                                            className="btn btn-danger me-2 float-end">
-                                        Delete</Button>
-                                        <Button onClick={(event) => {
-                                            event.preventDefault();
-                                            setCourse(course);
-                                        }}
-                                        className="btn btn-warning me-2 float-end">
-                                        Edit</Button></div>}
                                         {enrollments.some(
                                             (enrollment) =>
                                             enrollment.user === profile._id &&
                                             enrollment.course === course._id) ? 
-                                        <Button className="btn btn-danger me-2 float-end"
-                                            onClick={() => dispatch(deleteEnrollment(course._id))}>Unenroll</Button> : 
-                                        <Button className="btn btn-success me-2 float-end"
+                                        <Button className="btn btn-danger m-2 float-end"
+                                            onClick={() => dispatch(deleteEnrollment(course._id))}>
+                                        Unenroll</Button> : 
+                                        <Button className="btn btn-success m-2 float-end"
                                             onClick={() => dispatch(addNewEnrollment({
                                                 user: profile._id,
                                                 course: course._id,
                                             }))}>Enroll</Button>}
+                                        {(profile.role === "FACULTY") && <div className="d-flex justify-content-between">
+                                        <Button onClick={(event) => {
+                                            event.preventDefault();
+                                            dispatch(deleteCourse(course._id));}}
+                                            id="wd-delete-course-click"
+                                            className="btn btn-danger m-2 float-end">
+                                        Delete</Button>
+                                        <Button onClick={(event) => {
+                                            event.preventDefault();
+                                            setCourse(course);
+                                        }} className="btn btn-warning m-2 float-end">
+                                        Edit</Button></div>}
                                     </CardBody>
                                 </div>
                             </Card>

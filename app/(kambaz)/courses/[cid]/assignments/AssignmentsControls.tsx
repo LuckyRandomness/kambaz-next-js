@@ -3,20 +3,31 @@ import InputGroupText from "react-bootstrap/esm/InputGroupText";
 import { CiSearch } from "react-icons/ci";
 import { BsPlus } from "react-icons/bs";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/(kambaz)/store";
+import { useEffect, useState } from "react";
 
 export default function AssignmentsControls() {
     const {cid} = useParams();
+    const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+    const [profile, setProfile] = useState<any>({});
+    const fetchProfile = () => {
+        if (!currentUser) return redirect("/account/signin");
+        setProfile(currentUser);
+        };
+    useEffect(() => {
+        fetchProfile();
+        }, []);
     return(
         <div id="wd-assignments-control" className="text-nowrap">
             <InputGroup className="float-start w-50">
                 <InputGroupText><CiSearch /></InputGroupText>
                 <FormControl placeholder="Search..."/>
             </InputGroup>
-            <Button href={`/courses/${cid}/assignments/new`}
-            variant="danger" size="lg" className="me-1 float-end" id="wd-assignment-btn">
-                <BsPlus className="fs-3" /> Assignment
-            </Button>
+            {profile.role === "FACULTY" && <Link href={`/courses/${cid}/assignments/new`}>
+                <Button size="lg" className="me-1 float-end btn btn-danger" id="wd-assignment-btn">
+                <BsPlus className="fs-3" /> Assignment</Button></Link>}
             <Button variant="secondary" size="lg" className="me-1 float-end" id="wd-group-btn">
                 <BsPlus className="fs-3" /> Group
             </Button>

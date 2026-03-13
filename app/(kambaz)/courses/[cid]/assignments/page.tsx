@@ -18,11 +18,12 @@ export default function Assignments() {
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const { assignments } = useSelector((state: RootState) => state.assignmentReducer);
     const dispatch = useDispatch();
+    const dateObjectToHtmlDateString = (date: Date) => {
+        return `${date.getFullYear()} - ${date.getMonth() + 1 < 10 ? 0 : ""}${
+            date.getMonth() + 1
+            }-${date.getDate() + 1 < 10 ? 0 : ""}${date.getDate() + 1}`;
+    };
 
-    /*useEffect(() => {
-        if (!currentUser) {console.log("empty")};
-        console.log(currentUser?.firstName);
-    }, []);*/
     return(
         <div>
             <AssignmentsControls /> <br /><br /><br /><br />

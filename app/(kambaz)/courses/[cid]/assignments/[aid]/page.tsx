@@ -1,7 +1,7 @@
 'use client'
 import { Button, Col, FormCheck, FormControl, FormLabel, FormSelect, Row } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import Link from "next/link";
 import { updateAssignment, addAssignment } from "..";
 import { useEffect, useState } from "react";
@@ -32,10 +32,19 @@ export default function AssignmentEditor() {
             dispatch(updateAssignment(asgn));
         }
     }
+    const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+    const [profile, setProfile] = useState<any>({});
+    const fetchProfile = () => {
+        if (!currentUser) return redirect("/account/signin");
+        setProfile(currentUser);
+        };
+    useEffect(() => {
+        fetchProfile();
+        }, []);
+        
     
     return (
         <div id="wd-assignments-editor">
-            {aid}
             <Form>
                 <Form.Group>
                     <FormLabel htmlFor="wd-name">Assignment Name</FormLabel><br />
@@ -108,8 +117,8 @@ export default function AssignmentEditor() {
             <div className="d-flex flex-row justify-content-end">
                 <Link href={`/courses/${ cid }/assignments`}>
                     <Button variant="secondary" size="lg" className="me-1 float-end"> Cancel </Button>
-                    <Button variant="danger" size="lg" className="me-1 float-end"
-                    onClick={() => save()}> Save </Button>
+                    {profile.role === "FACULTY" && <Button variant="danger" size="lg" className="me-1 float-end"
+                    onClick={() => save()}> Save </Button>}
                 </Link>
             </div> 
         </div>
