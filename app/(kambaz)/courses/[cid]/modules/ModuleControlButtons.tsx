@@ -23,7 +23,7 @@ export default function ModuleControlButtons(
   
   return (
     <div className="float-end">
-      {profile.user === "FACULTY" && <FaPencil onClick={() => editModule(moduleId)} className="text-primary me-2" />}
+      {profile.role === "FACULTY" && <FaPencil onClick={() => editModule(moduleId)} className="text-primary me-2" />}
       {profile.role === "FACULTY" && <FaTrash className="text-danger me-2 mb-1" onClick={() => deleteModule(moduleId)}/>}
       <GreenCheckmark />
       <BsPlus />
