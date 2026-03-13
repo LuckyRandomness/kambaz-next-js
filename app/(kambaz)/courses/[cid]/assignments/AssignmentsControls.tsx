@@ -26,7 +26,7 @@ export default function AssignmentsControls() {
                 <FormControl placeholder="Search..."/>
             </InputGroup>
             {profile.role === "FACULTY" && <Link href={`/courses/${cid}/assignments/new`}>
-                <Button size="lg" className="me-1 float-end btn btn-danger" id="wd-assignment-btn">
+                <Button size="lg" className="me-1 float-end btn-danger" id="wd-assignment-btn">
                 <BsPlus className="fs-3" /> Assignment</Button></Link>}
             <Button variant="secondary" size="lg" className="me-1 float-end" id="wd-group-btn">
                 <BsPlus className="fs-3" /> Group
