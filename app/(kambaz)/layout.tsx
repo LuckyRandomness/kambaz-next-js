@@ -1,4 +1,5 @@
 "use client";
+import Session from "./account/Session";
 import { ReactNode } from "react";
 import KambazNavigation from "./Navigation";
 import "./styles.css";
@@ -7,6 +8,7 @@ import { Provider } from "react-redux";
 export default function KambazLayout({ children }: Readonly<{ children: ReactNode }>) {
  return (
    <Provider store={store}>
+    <Session>
      <div className="d-flex" id="wd-kambaz">
        <div>
          <KambazNavigation />
@@ -15,5 +17,6 @@ export default function KambazLayout({ children }: Readonly<{ children: ReactNod
          {children}
        </div>
      </div>
+    </Session>
    </Provider>
 );}

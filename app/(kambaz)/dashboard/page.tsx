@@ -1,12 +1,13 @@
 "use client"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewCourse, deleteCourse, updateCourse } from "../courses/reducer";
+import { addNewCourse, deleteCourse, updateCourse, setCourses } from "../courses/reducer";
 import { addNewEnrollment, deleteEnrollment } from "./reducer";
 import { RootState } from "@/app/(kambaz)/store";
 import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, FormControl, Row } from "react-bootstrap";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import * as client from "../courses/client";
 export default function Dashboard(){
     const { courses } = useSelector((state: RootState) => state.coursesReducer);
     const { enrollments } = useSelector((state: RootState) => state.enrollmentsReducer);
@@ -17,10 +18,34 @@ export default function Dashboard(){
     const fetchProfile = () => {
         if (!currentUser) return redirect("/account/signin");
         setProfile(currentUser);
-      };
+    };
+    const fetchCourses = async () => {
+        try {
+        const courses = await client.findMyCourses();
+        dispatch(setCourses(courses));
+        } catch (error) {
+        console.error(error);
+        }
+    };
+    const onAddNewCourse = async () => {
+        const newCourse = await client.createCourse(course);
+        dispatch(setCourses([ ...courses, newCourse ]));
+    };
+    const onDeleteCourse = async (courseId: string) => {
+        const status = await client.deleteCourse(courseId);
+        dispatch(setCourses(courses.filter((course) => course._id !== courseId)));
+    };
+    const onUpdateCourse = async () => {
+        await client.updateCourse(course);
+        dispatch(setCourses(courses.map((c) => {
+            if (c._id === course._id) { return course; }
+            else { return c; }
+    })));};
+
     useEffect(() => {
+        fetchCourses();
         fetchProfile();
-      }, []);
+      }, [currentUser]);
 
     const [course, setCourse] = useState<any> ({
         _id: "0", name: "New Course", number: "New Number",
@@ -40,9 +65,9 @@ export default function Dashboard(){
                 {(profile.role === "FACULTY") && <div><h5>New Course
                     <button className="btn btn-primary float-end"
                             id="wd-add-new-course-click"
-                            onClick={() => dispatch(addNewCourse(course))} > Add </button>
+                            onClick={onAddNewCourse} > Add </button>
                     <button className="btn btn-warning float-end me-2"
-                            onClick={() => dispatch(updateCourse(course))} id="wd-update-course-click">
+                            onClick={onUpdateCourse} id="wd-update-course-click">
                      Update </button>
                 </h5><br />
                 <FormControl value={course.name} className="mb-2" 
@@ -52,26 +77,11 @@ export default function Dashboard(){
                 <hr /> </div>}
                 <h2 id="wd-dashboard-published">Published Courses ({publishedCourses})</h2> <hr />
                 <Row xs={1} md={5} className="g-4">
-                    {courses.filter((course) =>
-                        enrollments.some(
-                            (enrollment) =>
-                            enrollment.user === profile._id &&
-                            enrollment.course === course._id ||
-                            allCourses
-                            ))
-                    .map((course) => (
+                    {courses.map((course) => (
                         <Col className="wd-dashboard-course" style={{ width: "300px" }}>
                             <Card>
                                 <div className="wd-dashboard-course-link text-decoration-none text-dark">
-                                    <CardImg onLoad={() => setPublishedCourses(
-                                        courses.filter((c) =>
-                                        enrollments.some(
-                                            (enrollment) =>
-                                            enrollment.user === profile._id &&
-                                            enrollment.course === c._id ||
-                                            allCourses
-                                            )).length
-                                    )}
+                                    <CardImg onLoad={() => setPublishedCourses(courses.length)}
                                     src={course.image} variant="top" width="100%" height={160}/>
                                     <CardBody className="card-body">
                                         <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">{course.name}</CardTitle>
@@ -96,7 +106,7 @@ export default function Dashboard(){
                                         {(profile.role === "FACULTY") && <div className="d-flex justify-content-between">
                                         <Button onClick={(event) => {
                                             event.preventDefault();
-                                            dispatch(deleteCourse(course._id));}}
+                                            onDeleteCourse(course._id);}}
                                             id="wd-delete-course-click"
                                             className="btn btn-danger m-2 float-end">
                                         Delete</Button>
