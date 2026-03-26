@@ -3,10 +3,11 @@ import { Button, Col, FormCheck, FormControl, FormLabel, FormSelect, Row } from 
 import Form from 'react-bootstrap/Form';
 import { redirect, useParams } from "next/navigation";
 import Link from "next/link";
-import { updateAssignment, addAssignment } from "..";
+import { setAssignments, updateAssignment } from "..";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
+import * as client from "../client";
 
 export default function AssignmentEditor() {
     const { cid, aid } = useParams();
@@ -18,20 +19,22 @@ export default function AssignmentEditor() {
         "description" : "NEW DESCRIPTION",
         "course" : cid,
     });
-
+    const onCreateAssignmentForCourse = async () => {
+        if (!cid) return;
+        const newAssignment = { course: cid };
+        const assignment = await client.createAssignmentForCourse(cid as string, newAssignment);
+        dispatch(setAssignments([...assignments, assignment]));
+    };
+    const onUpdateAssignments = async (assignment: any) => {
+        await client.updateAssignment(cid as string, assignment);
+        const newAssignments = assignments.map((a: any) => a._id === assignment._id ? assignment : a );
+        dispatch(setAssignments(newAssignments));
+    };
     useEffect(() => {
        if(aid !== 'new') {
         setAsgn(firstAsgn);
        }
     }, [aid]);
-
-    const save = () => {
-        if(aid === 'new') {
-            dispatch(addAssignment(asgn));
-        } else {
-            dispatch(updateAssignment(asgn));
-        }
-    }
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const [profile, setProfile] = useState<any>({});
     const fetchProfile = () => {
@@ -117,8 +120,10 @@ export default function AssignmentEditor() {
             <div className="d-flex flex-row justify-content-end">
                 <Link href={`/courses/${ cid }/assignments`}>
                     <Button variant="secondary" size="lg" className="me-1 float-end"> Cancel </Button>
-                    {profile.role === "FACULTY" && <Button variant="danger" size="lg" className="me-1 float-end"
-                    onClick={() => save()}> Save </Button>}
+                    {(aid === "new") && (profile.role === "FACULTY" && <Button variant="danger" size="lg" className="me-1 float-end"
+                    onClick={onCreateAssignmentForCourse}> Save </Button>)}
+                    {(aid !== "new") && (profile.role === "FACULTY" && <Button variant="danger" size="lg" className="me-1 float-end"
+                    onClick={onUpdateAssignments}> Save </Button>)}
                 </Link>
             </div> 
         </div>

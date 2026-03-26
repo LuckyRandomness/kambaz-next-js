@@ -12,18 +12,25 @@ import { deleteAssignment } from ".";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
 import { useEffect } from "react";
+import { setAssignments } from "./index";
+import * as client from "./client";
 
 export default function Assignments() {
     const { cid } = useParams();
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const { assignments } = useSelector((state: RootState) => state.assignmentReducer);
     const dispatch = useDispatch();
-    const dateObjectToHtmlDateString = (date: Date) => {
-        return `${date.getFullYear()} - ${date.getMonth() + 1 < 10 ? 0 : ""}${
-            date.getMonth() + 1
-            }-${date.getDate() + 1 < 10 ? 0 : ""}${date.getDate() + 1}`;
+    const fetchAssignments = async () => {
+        const assignments = await client.findAssignmentsForCourse(cid as string);
+        dispatch(setAssignments(assignments));
     };
-
+    const onRemoveAssignment = async (courseId: string, assignmentId: string) => {
+        await client.deleteAssignment(courseId, assignmentId);
+        dispatch(setAssignments(assignments.filter((a: any) => a._id !== assignmentId)));
+    };
+    useEffect(() => {
+        fetchAssignments();
+    }, []);
     return(
         <div>
             <AssignmentsControls /> <br /><br /><br /><br />
@@ -34,9 +41,7 @@ export default function Assignments() {
                         <b>ASSIGNMENTS</b> <AssignmentControlButtons />
                     </div>
                     <ListGroup id="wd-assignment-entries">
-                        {assignments
-                            .filter((asgn: any) => (asgn.course === cid))
-                            .map((asgn) => (
+                        {assignments.map((asgn) => (
                                 <ListGroupItem className="wd-assignment-entry p-3 ps-1">
                                     <div className="d-flex flex-row justify-content-between align-items-center"> 
                                         <EntryButtonsLeft />
@@ -45,6 +50,6 @@ export default function Assignments() {
                                                 <b>{asgn.title}</b></Link><br />
                                                 <div className="fs-6"><span className="text-danger"> Multiple Modules </span> | <b>Not available until</b> {asgn.from} | <br />
                                                 <b>Due</b> {asgn.due} | {asgn.points} pts</div></div>                                        
-                                        <LessonControlButtons assignmentId={asgn._id} deleteAssignment={(assignmentId) => dispatch(deleteAssignment(assignmentId))} />
+                                        <LessonControlButtons assignmentId={asgn._id} deleteAssignment={() => onRemoveAssignment(cid as string, asgn._id)} />
 </div> </ListGroupItem> ))} </ListGroup> </ListGroupItem> </ListGroup> </div>);
 }
