@@ -1,8 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewCourse, deleteCourse, updateCourse, setCourses } from "../courses/reducer";
-import { addNewEnrollment, deleteEnrollment } from "./reducer";
+import { setCourses, setEnrollments } from "../courses/reducer";
 import { RootState } from "@/app/(kambaz)/store";
 import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, FormControl, Row } from "react-bootstrap";
 import { redirect } from "next/navigation";
@@ -41,6 +40,14 @@ export default function Dashboard(){
             if (c._id === course._id) { return course; }
             else { return c; }
     })));};
+    const onEnrollment = async (courseId: string) => {
+        const newEnrollment = await client.enrollInCourse(courseId);
+        dispatch(setEnrollments([ ...enrollments, newEnrollment ]));
+    };
+    const onUnenrollment = async (courseId: string) => {
+        const status = await client.unenrollInCourse(courseId);
+        dispatch(setEnrollments(enrollments.filter((enrollment) => enrollment.course !== courseId)));
+    };
 
     useEffect(() => {
         fetchCourses();
@@ -96,13 +103,12 @@ export default function Dashboard(){
                                             enrollment.user === profile._id &&
                                             enrollment.course === course._id) ? 
                                         <Button className="btn btn-danger m-2 float-end"
-                                            onClick={() => dispatch(deleteEnrollment(course._id))}>
+                                            onClick={(event) => {
+                                                event.preventDefault();
+                                                onUnenrollment(course._id)}}>
                                         Unenroll</Button> : 
                                         <Button className="btn btn-success m-2 float-end"
-                                            onClick={() => dispatch(addNewEnrollment({
-                                                user: profile._id,
-                                                course: course._id,
-                                            }))}>Enroll</Button>}
+                                            onClick={() => onEnrollment(course._id)}>Enroll</Button>}
                                         {(profile.role === "FACULTY") && <div className="d-flex justify-content-between">
                                         <Button onClick={(event) => {
                                             event.preventDefault();

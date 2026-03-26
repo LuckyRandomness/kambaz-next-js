@@ -43,3 +43,11 @@ export const updateModule = async (module: any) => {
   const { data } = await axios.put(`${MODULES_API}/${module._id}`, module);
   return data;
 };
+export const enrollInCourse = async (courseId: string) => {
+  const { data } = await axios.post(`${COURSES_API}/${courseId}/enrollment`);
+  return data;
+}
+export const unenrollInCourse = async (courseId: string) => {
+  const { data } = await axios.delete(`${COURSES_API}/${courseId}/enrollment`);
+  return data;
+}
