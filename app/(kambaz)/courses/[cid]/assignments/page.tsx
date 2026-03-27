@@ -8,7 +8,6 @@ import AssignmentControlButtons from "./AssignmentControlButtons";
 import LessonControlButtons from "./LessonControlButtons";
 import EntryButtonsLeft from "./EntryButtonsLeft";
 import { useParams } from "next/navigation";
-import { deleteAssignment } from ".";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
 import { useEffect } from "react";
