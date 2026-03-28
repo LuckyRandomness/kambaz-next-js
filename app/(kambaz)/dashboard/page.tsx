@@ -1,7 +1,8 @@
 "use client"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCourses, setEnrollments } from "../courses/reducer";
+import { setCourses } from "../courses/reducer";
+import { setEnrollments } from "./reducer";
 import { RootState } from "@/app/(kambaz)/store";
 import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, FormControl, Row } from "react-bootstrap";
 import { redirect } from "next/navigation";
@@ -20,10 +21,15 @@ export default function Dashboard(){
     };
     const fetchCourses = async () => {
         try {
-        const courses = await client.findMyCourses();
-        dispatch(setCourses(courses));
+            if (allCourses) {
+                const courses = await client.fetchAllCourses();
+                dispatch(setCourses(courses));
+            } else {
+                const courses = await client.findMyCourses();
+                dispatch(setCourses(courses));
+            }
         } catch (error) {
-        console.error(error);
+            console.error(error);
         }
     };
     const onAddNewCourse = async () => {
@@ -46,21 +52,21 @@ export default function Dashboard(){
     };
     const onUnenrollment = async (courseId: string) => {
         const status = await client.unenrollInCourse(courseId);
-        dispatch(setEnrollments(enrollments.filter((enrollment) => enrollment.course !== courseId)));
+        dispatch(setEnrollments(enrollments.filter((enrollment) => 
+            (enrollment.course !== courseId) || (enrollment.user !== profile._id))));
     };
+    const [allCourses, setAllCourses] = useState(false);
 
     useEffect(() => {
         fetchCourses();
         fetchProfile();
-      }, [currentUser]);
+      }, [currentUser, allCourses]);
 
     const [course, setCourse] = useState<any> ({
         _id: "0", name: "New Course", number: "New Number",
         startDate: "2023-09-10", endDate: "2023-12-15",
         image: "/images/reactjs.jpg", description: "New Description"
     });
-    const [allCourses, setAllCourses] = useState(false);
-    const [publishedCourses, setPublishedCourses] = useState(0);
 
     return(
         <div id="wd-dashboard">
@@ -82,14 +88,13 @@ export default function Dashboard(){
                 <FormControl value={course.description} as="textarea" rows={3} 
                     onChange={(e) => setCourse( {...course, description: e.target.value })}/>
                 <hr /> </div>}
-                <h2 id="wd-dashboard-published">Published Courses ({publishedCourses})</h2> <hr />
+                <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2> <hr />
                 <Row xs={1} md={5} className="g-4">
                     {courses.map((course) => (
                         <Col className="wd-dashboard-course" style={{ width: "300px" }}>
                             <Card>
                                 <div className="wd-dashboard-course-link text-decoration-none text-dark">
-                                    <CardImg onLoad={() => setPublishedCourses(courses.length)}
-                                    src={course.image} variant="top" width="100%" height={160}/>
+                                    <CardImg src={course.image} variant="top" width="100%" height={160}/>
                                     <CardBody className="card-body">
                                         <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">{course.name}</CardTitle>
                                         <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>

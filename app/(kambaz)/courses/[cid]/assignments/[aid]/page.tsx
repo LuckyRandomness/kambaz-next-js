@@ -3,17 +3,28 @@ import { Button, Col, FormCheck, FormControl, FormLabel, FormSelect, Row } from 
 import Form from 'react-bootstrap/Form';
 import { redirect, useParams } from "next/navigation";
 import Link from "next/link";
-import { setAssignments, updateAssignment } from "..";
+import { setAssignments } from "../reducer";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
 import * as client from "../client";
 
+type AssignmentType = {
+    _id: string,
+    title: string,
+    course: string,
+    from: string,
+    due: string,
+    until: string,
+    points: string,
+    description: string,
+}
+
 export default function AssignmentEditor() {
     const { cid, aid } = useParams();
     const { assignments } = useSelector((state: RootState) => state.assignmentReducer)
     const dispatch = useDispatch();
-    const firstAsgn = assignments.find((asg) => (asg._id === aid));    
+    const firstAsgn = assignments.find((asg: AssignmentType) => (asg._id === aid));    
     const [asgn, setAsgn] = useState<any>({
         "title": "New Assignment",
         "description" : "NEW DESCRIPTION",
@@ -21,13 +32,12 @@ export default function AssignmentEditor() {
     });
     const onCreateAssignmentForCourse = async () => {
         if (!cid) return;
-        const newAssignment = { course: cid };
-        const assignment = await client.createAssignmentForCourse(cid as string, newAssignment);
+        const assignment = await client.createAssignmentForCourse(asgn);
         dispatch(setAssignments([...assignments, assignment]));
     };
-    const onUpdateAssignments = async (assignment: any) => {
-        await client.updateAssignment(cid as string, assignment);
-        const newAssignments = assignments.map((a: any) => a._id === assignment._id ? assignment : a );
+    const onUpdateAssignments = async () => {
+        await client.updateAssignment(cid as string, asgn);
+        const newAssignments = assignments.map((a: any) => a._id === asgn._id ? asgn : a );
         dispatch(setAssignments(newAssignments));
     };
     useEffect(() => {
@@ -51,7 +61,7 @@ export default function AssignmentEditor() {
             <Form>
                 <Form.Group>
                     <FormLabel htmlFor="wd-name">Assignment Name</FormLabel><br />
-                    <FormControl id="wd-name" value={asgn?.title} 
+                    <FormControl id="wd-name" value={asgn.title} 
                     onChange={(e) => setAsgn({ ...asgn, title: e.target.value})}/><br />
                     <FormControl as="textarea" rows={5} value= {asgn.description}
                     onChange={(e) => setAsgn({ ...asgn, description: e.target.value})}/><br /><br />

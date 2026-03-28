@@ -1,16 +1,14 @@
 import axios from "axios";
-const axiosWithCredentials = axios.create({ withCredentials: true });
 const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
-const USERS_API = `${HTTP_SERVER}/api/users`;
 
 export const findAssignmentsForCourse = async (courseId: string) => {
   const response = await axios
     .get(`${HTTP_SERVER}/api/courses/${ courseId }/assignments`);
   return response.data;
 };
-export const createAssignmentForCourse = async (courseId: string, assignment: any) => {
+export const createAssignmentForCourse = async (assignment: any) => {
   const response = await axios.post(
-    `${HTTP_SERVER}/api/courses/${ courseId }/assignments`, 
+    `${HTTP_SERVER}/api/courses/assignments`, 
     assignment);
   return response.data;
 };

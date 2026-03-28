@@ -11,12 +11,21 @@ import { useParams } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
 import { useEffect } from "react";
-import { setAssignments } from "./index";
+import { setAssignments } from "./reducer";
 import * as client from "./client";
+
+type AssignmentType = {
+    _id: string,
+    title: string,
+    course: string,
+    from: string,
+    due: string,
+    until: string,
+    points: string,
+}
 
 export default function Assignments() {
     const { cid } = useParams();
-    const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const { assignments } = useSelector((state: RootState) => state.assignmentReducer);
     const dispatch = useDispatch();
     const fetchAssignments = async () => {
@@ -40,7 +49,7 @@ export default function Assignments() {
                         <b>ASSIGNMENTS</b> <AssignmentControlButtons />
                     </div>
                     <ListGroup id="wd-assignment-entries">
-                        {assignments.map((asgn) => (
+                        {assignments.map((asgn: AssignmentType) => (
                                 <ListGroupItem className="wd-assignment-entry p-3 ps-1">
                                     <div className="d-flex flex-row justify-content-between align-items-center"> 
                                         <EntryButtonsLeft />
