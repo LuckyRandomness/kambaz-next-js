@@ -2,8 +2,6 @@
 
 # dependencies
 /node_modules
-.env
-.env.development
 /.pnp
 .pnp.*
 .yarn/*

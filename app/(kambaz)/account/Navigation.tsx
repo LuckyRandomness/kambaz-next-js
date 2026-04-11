@@ -5,6 +5,10 @@ import { Nav, NavItem, NavLink } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
 
+type UserType = {
+    role: string
+}
+
 export default function AccountNavigation() {
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
   const links = currentUser ? ["profile"] : ["signin", "signup"];
@@ -16,6 +20,8 @@ export default function AccountNavigation() {
                 <NavLink as={Link} href={link} active={pathname.endsWith(link)}>
                 {link} </NavLink> </NavItem>
             ))}
+            {currentUser && (currentUser as UserType).role === "ADMIN" && (
+                <NavLink as={Link} href={'/account/users'} active={pathname.endsWith('Users')}> Users </NavLink>)}
         </Nav>
     );
 }
