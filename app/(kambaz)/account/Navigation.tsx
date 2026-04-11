@@ -21,7 +21,7 @@ export default function AccountNavigation() {
                 {link} </NavLink> </NavItem>
             ))}
             {currentUser && (currentUser as UserType).role === "ADMIN" && (
-                <NavLink as={Link} href={'/account/users'} active={pathname.endsWith('Users')}> Users </NavLink>)}
+                <NavLink as={Link} href={'/account/users'} active={pathname.endsWith('users')}> users </NavLink>)}
         </Nav>
     );
 }
