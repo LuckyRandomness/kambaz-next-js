@@ -8,6 +8,8 @@ import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, FormControl,
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import * as client from "../courses/client";
+
+
 export default function Dashboard(){
     const { courses } = useSelector((state: RootState) => state.coursesReducer);
     const { enrollments } = useSelector((state: RootState) => state.enrollmentsReducer);
@@ -35,6 +37,8 @@ export default function Dashboard(){
     const onAddNewCourse = async () => {
         const newCourse = await client.createCourse(course);
         dispatch(setCourses([ ...courses, newCourse ]));
+        alert(enrollments.filter((enrollment) => enrollment.user == profile._id).map((e) => e.course));
+        //onEnrollment(newCourse._id);
     };
     const onDeleteCourse = async (courseId: string) => {
         const status = await client.deleteCourse(courseId);
@@ -47,8 +51,12 @@ export default function Dashboard(){
             else { return c; }
     })));};
     const onEnrollment = async (courseId: string) => {
+        alert("HERE - onENROLL");
+        alert(enrollments.filter((enrollment) => enrollment.user == profile._id).map((e) => e.course));
         const newEnrollment = await client.enrollInCourse(courseId);
+        alert(enrollments.filter((enrollment) => enrollment.user == profile._id).map((e) => e.course));
         dispatch(setEnrollments([ ...enrollments, newEnrollment ]));
+        alert(enrollments.filter((enrollment) => enrollment.user == profile._id).map((e) => e.course));
     };
     const onUnenrollment = async (courseId: string) => {
         const status = await client.unenrollInCourse(courseId);
@@ -105,8 +113,7 @@ export default function Dashboard(){
                                         </Link>
                                         {enrollments.some(
                                             (enrollment) =>
-                                            enrollment.user === profile._id &&
-                                            enrollment.course === course._id) ? 
+                                            enrollment.user === profile._id && enrollment.course == course._id) ? 
                                         <Button className="btn btn-danger m-2 float-end"
                                             onClick={(event) => {
                                                 event.preventDefault();

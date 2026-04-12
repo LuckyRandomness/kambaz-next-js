@@ -5,7 +5,7 @@ import { BsGripVertical } from "react-icons/bs";
 import ModuleControlButtons from "./ModuleControlButtons";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { setModules, addModule, editModule, updateModule, deleteModule }
+import { setModules, addModule, editModule, updateModule }
   from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
@@ -27,11 +27,11 @@ export default function Modules() {
     dispatch(setModules([...modules, module]));
   };
   const onRemoveModule = async (moduleId: string) => {
-    await client.deleteModule(moduleId);
+    await client.deleteModule(cid as string, moduleId);
     dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
   };
   const onUpdateModule = async (module: any) => {
-    await client.updateModule(module);
+    await client.updateModule(cid as string, module);
     const newModules = modules.map((m: any) => m._id === module._id ? module : m );
     dispatch(setModules(newModules));
   };
