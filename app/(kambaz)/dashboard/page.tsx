@@ -34,15 +34,25 @@ export default function Dashboard(){
             console.error(error);
         }
     };
+    const fetchEnrollments = async () => {
+        try {
+            const enrollments = await client.findMyEnrollments();
+            dispatch(setEnrollments(enrollments));
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
     const onAddNewCourse = async () => {
         const newCourse = await client.createCourse(course);
         dispatch(setCourses([ ...courses, newCourse ]));
-        alert(enrollments.filter((enrollment) => enrollment.user == profile._id).map((e) => e.course));
-        //onEnrollment(newCourse._id);
+        fetchEnrollments();
     };
     const onDeleteCourse = async (courseId: string) => {
         const status = await client.deleteCourse(courseId);
+        //onUnenrollment(courseId);
         dispatch(setCourses(courses.filter((course) => course._id !== courseId)));
+        //dispatch(setEnrollments(enrollments.filter((e) => e.course !== courseId)));
     };
     const onUpdateCourse = async () => {
         await client.updateCourse(course);
@@ -51,12 +61,9 @@ export default function Dashboard(){
             else { return c; }
     })));};
     const onEnrollment = async (courseId: string) => {
-        alert("HERE - onENROLL");
-        alert(enrollments.filter((enrollment) => enrollment.user == profile._id).map((e) => e.course));
         const newEnrollment = await client.enrollInCourse(courseId);
-        alert(enrollments.filter((enrollment) => enrollment.user == profile._id).map((e) => e.course));
         dispatch(setEnrollments([ ...enrollments, newEnrollment ]));
-        alert(enrollments.filter((enrollment) => enrollment.user == profile._id).map((e) => e.course));
+        fetchEnrollments();
     };
     const onUnenrollment = async (courseId: string) => {
         const status = await client.unenrollInCourse(courseId);
@@ -68,6 +75,7 @@ export default function Dashboard(){
     useEffect(() => {
         fetchCourses();
         fetchProfile();
+        fetchEnrollments();
       }, [currentUser, allCourses]);
 
     const [course, setCourse] = useState<any> ({
