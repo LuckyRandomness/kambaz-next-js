@@ -3,14 +3,26 @@ import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 import PeopleDetails from "./Details";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/(kambaz)/store";
 
 export default function PeopleTable({ users = [], fetchUsers }: { users?: any[]; fetchUsers: () => void; }) {
   const [showDetails, setShowDetails] = useState(false);
   const [showUserId, setShowUserId] = useState<string | null>(null);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const [profile, setProfile] = useState<any>({});
+  const fetchProfile = () => {
+      if (!currentUser) return redirect("/account/signin");
+      setProfile(currentUser);
+      };
+  useEffect(() => {
+      fetchProfile();
+      }, []);
   return (
   <div id="wd-people-table">
-    {showDetails && (
+    {showDetails && profile.role === "ADMIN" && (
        <PeopleDetails
          uid={showUserId}
          onClose={() => {

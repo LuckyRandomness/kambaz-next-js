@@ -50,9 +50,7 @@ export default function Dashboard(){
     };
     const onDeleteCourse = async (courseId: string) => {
         const status = await client.deleteCourse(courseId);
-        //onUnenrollment(courseId);
         dispatch(setCourses(courses.filter((course) => course._id !== courseId)));
-        //dispatch(setEnrollments(enrollments.filter((e) => e.course !== courseId)));
     };
     const onUpdateCourse = async () => {
         await client.updateCourse(course);
@@ -62,7 +60,6 @@ export default function Dashboard(){
     })));};
     const onEnrollment = async (courseId: string) => {
         const newEnrollment = await client.enrollInCourse(courseId);
-        dispatch(setEnrollments([ ...enrollments, newEnrollment ]));
         fetchEnrollments();
     };
     const onUnenrollment = async (courseId: string) => {

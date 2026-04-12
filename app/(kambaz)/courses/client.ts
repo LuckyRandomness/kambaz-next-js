@@ -20,7 +20,6 @@ export const createCourse = async (course: any) => {
   return data;
 };
 export const deleteCourse = async (id: string) => {
-  alert(id);
   const { data } = await axios.delete(`${COURSES_API}/${id}`);
   return data;
 };
@@ -55,4 +54,8 @@ export const enrollInCourse = async (courseId: string) => {
 export const unenrollInCourse = async (courseId: string) => {
   const { data } = await axiosWithCredentials.delete(`${COURSES_API}/${courseId}/enrollment`);
   return data;
+};
+export const findUsersForCourse = async (courseId: string) => {
+ const response = await axios.get(`${COURSES_API}/${courseId}/users`);
+ return response.data;
 };
