@@ -88,7 +88,7 @@ export default function Dashboard(){
                 <Button onClick={() => setAllCourses(!allCourses)}>
                 Enrollments</Button></div> <hr />
             <div className="wd-dashboard-courses">
-                {(profile.role === "FACULTY") && <div><h5>New Course
+                {(profile.role === "FACULTY" || profile.role === "ADMIN") && <div><h5>New Course
                     <button className="btn btn-primary float-end"
                             id="wd-add-new-course-click"
                             onClick={onAddNewCourse} > Add </button>
@@ -126,7 +126,7 @@ export default function Dashboard(){
                                         Unenroll</Button> : 
                                         <Button className="btn btn-success m-2 float-end"
                                             onClick={() => onEnrollment(course._id)}>Enroll</Button>}
-                                        {(profile.role === "FACULTY") && <div className="d-flex justify-content-between">
+                                        {(profile.role === "FACULTY" || profile.role === "ADMIN") && <div className="d-flex justify-content-between">
                                         <Button onClick={(event) => {
                                             event.preventDefault();
                                             onDeleteCourse(course._id);}}

@@ -24,7 +24,7 @@ export default function ModulesControls(
     }, []);
  return (
    <div id="wd-modules-controls" className="text-nowrap">
-     {profile.role === "FACULTY" && <Button variant="danger" size="lg" className="me-1 float-end" id="wd-add-module-btn"
+     {(profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end" id="wd-add-module-btn"
       onClick={handleShow}>
        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
        Module

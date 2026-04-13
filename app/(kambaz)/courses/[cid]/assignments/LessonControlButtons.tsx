@@ -22,7 +22,7 @@ export default function LessonControlButtons({ assignmentId, deleteAssignment }:
     }, []);
   return (
     <div className="float-end">
-      {profile.role === "FACULTY" && <FaTrash className="text-danger me-2 mb-1" onClick={handleShow} />}
+      {(profile.role === "FACULTY" || profile.role === "ADMIN") && <FaTrash className="text-danger me-2 mb-1" onClick={handleShow} />}
       <GreenCheckmark />
       <IoEllipsisVertical className="fs-4" />
       <DeleteDialog show={show} handleClose={handleClose} dialogTitle="Delete Assignment"

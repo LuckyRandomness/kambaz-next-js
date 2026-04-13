@@ -32,7 +32,7 @@ export default function AssignmentEditor() {
     });
     const onCreateAssignmentForCourse = async () => {
         if (!cid) return;
-        const assignment = await client.createAssignmentForCourse(asgn);
+        const assignment = await client.createAssignmentForCourse(cid as string, asgn);
         dispatch(setAssignments([...assignments, assignment]));
     };
     const onUpdateAssignments = async () => {
@@ -130,9 +130,9 @@ export default function AssignmentEditor() {
             <div className="d-flex flex-row justify-content-end">
                 <Link href={`/courses/${ cid }/assignments`}>
                     <Button variant="secondary" size="lg" className="me-1 float-end"> Cancel </Button>
-                    {(aid === "new") && (profile.role === "FACULTY" && <Button variant="danger" size="lg" className="me-1 float-end"
+                    {(aid === "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
                     onClick={onCreateAssignmentForCourse}> Save </Button>)}
-                    {(aid !== "new") && (profile.role === "FACULTY" && <Button variant="danger" size="lg" className="me-1 float-end"
+                    {(aid !== "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
                     onClick={onUpdateAssignments}> Save </Button>)}
                 </Link>
             </div> 
