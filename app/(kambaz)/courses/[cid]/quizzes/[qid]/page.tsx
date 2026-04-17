@@ -3,48 +3,46 @@ import { Button, Col, FormCheck, FormControl, FormLabel, FormSelect, Row } from 
 import Form from 'react-bootstrap/Form';
 import { redirect, useParams } from "next/navigation";
 import Link from "next/link";
-import { setAssignments } from "../reducer";
+import { setQuizzes } from "../reducer";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/(kambaz)/store";
 import * as client from "../client";
 
-type AssignmentType = {
+type QuizType = {
     _id: string,
     title: string,
-    course: string,
-    from: string,
     due: string,
-    until: string,
-    points: string,
-    description: string,
+    points: number,
+    questionNum: number,
+    published: boolean,
 }
 
-export default function AssignmentEditor() {
-    const { cid, aid } = useParams();
-    const { assignments } = useSelector((state: RootState) => state.assignmentReducer)
+export default function QuizEditor() {
+    const { cid, qid } = useParams();
+    const { quizzes } = useSelector((state: RootState) => state.quizzesReducer)
     const dispatch = useDispatch();
-    const firstAsgn = assignments.find((asg: AssignmentType) => (asg._id === aid));    
-    const [asgn, setAsgn] = useState<any>({
-        "title": "New Assignment",
+    const firstQuiz = quizzes.find((q: QuizType) => (q._id === qid));    
+    const [q, setQuiz] = useState<any>({
+        "title": "New Quiz",
         "description" : "NEW DESCRIPTION",
         "course" : cid,
     });
-    const onCreateAssignmentForCourse = async () => {
+    const onCreateQuizForCourse = async () => {
         if (!cid) return;
-        const assignment = await client.createAssignmentForCourse(cid as string, asgn);
-        dispatch(setAssignments([...assignments, assignment]));
+        const quiz = await client.createQuizForCourse(cid as string, q);
+        dispatch(setQuizzes([...quizzes, quiz]));
     };
-    const onUpdateAssignments = async () => {
-        await client.updateAssignment(cid as string, asgn);
-        const newAssignments = assignments.map((a: any) => a._id === asgn._id ? asgn : a );
-        dispatch(setAssignments(newAssignments));
+    const onUpdateQuizzes = async () => {
+        await client.updateQuiz(cid as string, q);
+        const newQuizzes = quizzes.map((a: any) => a._id === q._id ? q : a );
+        dispatch(setQuizzes(newQuizzes));
     };
     useEffect(() => {
-       if(aid != 'new') {
-        setAsgn(firstAsgn);
+       if(qid != 'new') {
+        setQuiz(firstQuiz);
        }
-    }, [aid]);
+    }, [qid]);
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const [profile, setProfile] = useState<any>({});
     const fetchProfile = () => {
@@ -57,23 +55,23 @@ export default function AssignmentEditor() {
         
     
     return (
-        <div id="wd-assignments-editor">
+        <div id="wd-quizzes-editor">
             <Form>
                 <Form.Group>
-                    <FormLabel htmlFor="wd-name">Assignment Name</FormLabel><br />
-                    <FormControl id="wd-name" value={asgn.title} 
-                    onChange={(e) => setAsgn({ ...asgn, title: e.target.value})}/><br />
-                    <FormControl as="textarea" rows={5} value= {asgn.description}
-                    onChange={(e) => setAsgn({ ...asgn, description: e.target.value})}/><br /><br />
+                    <FormLabel htmlFor="wd-name">Quiz Name</FormLabel><br />
+                    <FormControl id="wd-name" value={q.title} 
+                    onChange={(e) => setQuiz({ ...q, title: e.target.value})}/><br />
+                    <FormControl as="textarea" rows={5} value= {q.description}
+                    onChange={(e) => setQuiz({ ...q, description: e.target.value})}/><br /><br />
                 </Form.Group>
                     <Row className="justify-content-center">
                         <Col className="text-end"><FormLabel htmlFor="wd-points">Points</FormLabel></Col>
-                        <Col><FormControl id="wd-points" defaultValue={asgn?.points} type="number"
-                        onChange={(e) => setAsgn({ ...asgn, points: e.target.value })}/></Col>
+                        <Col><FormControl id="wd-points" defaultValue={q?.points} type="number"
+                        onChange={(e) => setQuiz({ ...q, points: e.target.value })}/></Col>
                     </Row> <br />
                     <Row className="justify-content-center">
-                        <Col className="text-end"><FormLabel htmlFor="wd-assignment-group">Assignment Group</FormLabel></Col>
-                        <Col><FormSelect id="wd-assignment-group">
+                        <Col className="text-end"><FormLabel htmlFor="wd-quiz-group">Quiz Group</FormLabel></Col>
+                        <Col><FormSelect id="wd-quiz-group">
                             <option value="ASSIGNMENTS">ASSIGNMENTS</option>
                             <option value="QUIZZES">QUIZZES</option>
                         </FormSelect> </Col>
@@ -108,19 +106,19 @@ export default function AssignmentEditor() {
                             </Form.Group> <br />
                             <Form.Group>
                                 <FormLabel><b>Due</b></FormLabel>
-                                <FormControl type="datetime-local" value={asgn?.due}
-                                onChange={(e) => setAsgn({ ...asgn, due: e.target.value })}/>
+                                <FormControl type="datetime-local" value={q?.due}
+                                onChange={(e) => setQuiz({ ...q, due: e.currentTarget.value })}/>
                             </Form.Group> <br />
                             <div className="d-flex flex-row">
                                 <Form.Group>
                                     <FormLabel><b>Available from</b></FormLabel>
-                                    <FormControl type="datetime-local" value={asgn?.from}
-                                    onChange={(e) => setAsgn({ ...asgn, from: e.target.value })}/>
+                                    <FormControl type="datetime-local" value={q?.from}
+                                    onChange={(e) => setQuiz({ ...q, from: e.target.value })}/>
                                 </Form.Group> <br />
                                 <Form.Group>
                                     <FormLabel><b>Until</b></FormLabel>
-                                    <FormControl type="datetime-local" value={asgn?.until}
-                                    onChange={(e) => setAsgn({ ...asgn, until: e.target.value })}/>
+                                    <FormControl type="datetime-local" value={q?.until}
+                                    onChange={(e) => setQuiz({ ...q, until: e.target.value })}/>
                                 </Form.Group> <br />
                             </div>
                         </Col>
@@ -128,12 +126,12 @@ export default function AssignmentEditor() {
             </Form>
             <hr/>
             <div className="d-flex flex-row justify-content-end">
-                <Link href={`/courses/${ cid }/assignments`}>
+                <Link href={`/courses/${ cid }/quizzes`}>
                     <Button variant="secondary" size="lg" className="me-1 float-end"> Cancel </Button>
-                    {(aid === "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
-                    onClick={onCreateAssignmentForCourse}> Save </Button>)}
-                    {(aid !== "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
-                    onClick={onUpdateAssignments}> Save </Button>)}
+                    {(qid === "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
+                    onClick={onCreateQuizForCourse}> Save </Button>)}
+                    {(qid !== "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
+                    onClick={onUpdateQuizzes}> Save </Button>)}
                 </Link>
             </div> 
         </div>
