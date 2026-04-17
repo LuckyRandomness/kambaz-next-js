@@ -31,7 +31,9 @@ export default function ControlButtons({ cid, quizId, deleteQuiz, togglePublishQ
             <DropdownMenu>
               <DropdownItem><Link href={`/courses/${cid}/quizzes/${quizId}`}>Edit Quiz</Link></DropdownItem>
               <DropdownItem onClick={handleShow}>Delete Quiz</DropdownItem>
-              <DropdownItem onClick={() => togglePublishQuiz(cid, quizId)}>Publish Quiz</DropdownItem>
+              <DropdownItem onClick={() => togglePublishQuiz(cid, quizId)}>
+                {published ? <p>Unpublish Quiz</p> : <p>Publish Quiz</p>}
+              </DropdownItem>
               <DropdownItem>Copy Quiz</DropdownItem>
               <DropdownItem>Sort Quiz</DropdownItem>
             </DropdownMenu>

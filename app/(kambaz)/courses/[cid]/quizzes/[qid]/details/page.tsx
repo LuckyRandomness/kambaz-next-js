@@ -5,18 +5,42 @@ import { redirect, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { FaPencil } from "react-icons/fa6";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import * as client from "../../client";
+import { setQuizzes } from "../../reducer";
+
+type QuizType = {
+    _id: string
+}
 
 export default function QuizDetails() {
     const { cid, qid } = useParams();
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const [profile, setProfile] = useState<any>({});
+    const [quiz, setQuiz] = useState<any>({});
+    const dispatch = useDispatch();
+    const fetchQuizzes = async () => {
+        const quizzes = await client.findQuizzesForCourse(cid as string);
+        dispatch(setQuizzes(quizzes));
+    };
     const fetchProfile = () => {
         if (!currentUser) return redirect("/account/signin");
-        setProfile(currentUser);
+            setProfile(currentUser);
+        };
+    const fetchOurQuiz = async () => {
+        const allQuizzes = await client.findQuizzesForCourse(cid as string);
+        const ourQuiz = allQuizzes.find((qz: QuizType) => (qz._id) == qid);
+        setQuiz(ourQuiz);
+    };
+    const togglePublishQuiz = async () => {
+            const newPub = !(quiz.published);
+            await client.updateQuiz(cid as string, {...quiz, published: newPub})
+            fetchOurQuiz();
         };
     useEffect(() => {
         fetchProfile();
+        fetchQuizzes();
+        fetchOurQuiz();
         }, []);
     return(
         <div>
@@ -30,53 +54,54 @@ export default function QuizDetails() {
                                     <FaPencil/> Edit 
                                 </Link></Button>
                         </div>
-                        <h3>QUIZ TITLE</h3>
+                        <h3>{quiz.title}</h3>
                         <Row>
-                            <Col className="text-end">Quiz Type</Col>
-                            <Col>X</Col>
+                            <Col className="text-end"><b>Quiz Type</b></Col>
+                            <Col>{quiz.type}</Col>
                         </Row>
                         <Row>
-                            <Col className="text-end">Points</Col>
-                            <Col>X</Col>
+                            <Col className="text-end"><b>Points</b></Col>
+                            <Col>{quiz.points}</Col>
                         </Row>
                         <Row>
-                            <Col className="text-end">Assignment Group</Col>
-                            <Col>X</Col>
+                            <Col className="text-end"><b>Assignment Group</b></Col>
+                            <Col>{quiz.assignmentGroup}</Col>
                         </Row>
                         <Row>
-                            <Col className="text-end">Shuffle Answers</Col>
-                            <Col>X</Col>
+                            <Col className="text-end"><b>Shuffle Answers</b></Col>
+                            <Col>{quiz.shuffleAnswers}</Col>
                         </Row>
                         <Row>
-                            <Col className="text-end">Time Limit</Col>
-                            <Col>X</Col>
+                            <Col className="text-end"><b>Time Limit</b></Col>
+                            <Col>{quiz.timeLimit}</Col>
                         </Row>
                         <Row>
-                            <Col className="text-end">Multiple Attempts</Col>
-                            <Col>X</Col>
+                            <Col className="text-end"><b>Multiple Attempts</b></Col>
+                            <Col>{quiz.multipleAttempts}</Col>
                         </Row>
                         <Row>
-                            <Col className="text-end">Show Correct Answers</Col>
+                            <Col className="text-end"><b>Show Correct Answers</b></Col>
                             <Col>Immediately</Col>
                         </Row>
                         <Row>
-                            <Col className="text-end">One Question At A Time</Col>
+                            <Col className="text-end"><b>One Question At A Time</b></Col>
                             <Col>Yes</Col>
                         </Row>
                         <Row>
-                            <Col className="text-end">Webcam Required</Col>
+                            <Col className="text-end"><b>Webcam Required</b></Col>
                             <Col>No</Col>
                         </Row>
                         <Row>
-                            <Col className="text-end">Lock Questions After Answering</Col>
+                            <Col className="text-end"><b>Lock Questions After Answering</b></Col>
                             <Col>No</Col>
                         </Row> <br/>
                         <div className="d-flex justify-content-between"> 
-                            <p>Due: </p>
-                            <p>For: </p>
-                            <p>Available From: </p>
-                            <p>Until: </p>
-                            <Button className="mb-3 btn-success">Publish/Unpublish</Button> 
+                            <p><b>Due:</b> {quiz.due}</p>
+                            <p><b>Available From:</b> {quiz.from}</p>
+                            <p><b>Until:</b> {quiz.until}</p>
+                            {(quiz.published) ? 
+                                <Button className="mb-3 btn-danger" onClick={togglePublishQuiz}>Unpublish</Button> :
+                                <Button className="mb-3 btn-success" onClick={togglePublishQuiz}>Publish</Button>}
                         </div>
                     </Container> <br/>   
                 </div>

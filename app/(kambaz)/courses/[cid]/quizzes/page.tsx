@@ -36,16 +36,12 @@ export default function Quizzes() {
         await client.deleteQuiz(courseId, quizId);
         dispatch(setQuizzes(quizzes.filter((quiz: any) => quiz._id !== quizId)));
     };
-    //HOW TO GET UPDATE FUNCTIONALITY IN HERE?
-    const [q, setQ] = useState<any>({
-        _id: "None",
-    });
     const togglePublishQuiz = async (courseId: string, quizId: string) => {
-        const firstQuiz = quizzes.find((q: QuizType) => (q._id === quizId)); 
-        setQ(firstQuiz);
-        //HOW TO GET THE QUIZ TO UPDATE PUBLISHED TO UPDATE 
-        setQ({...q, published: "SHOULD BE HERE"});
-        alert("toggle publish of " + q._id + " TO " + "SHOULD BE HERE");
+        const allQuizzes = await client.findQuizzesForCourse(courseId);
+        const ourQuiz = allQuizzes.find((qz: QuizType) => (qz._id) == quizId);
+        const newPub = !(ourQuiz.published);
+        await client.updateQuiz(courseId, {...ourQuiz, published: newPub})
+        fetchQuizzes();
     };
     useEffect(() => {
         fetchQuizzes();
