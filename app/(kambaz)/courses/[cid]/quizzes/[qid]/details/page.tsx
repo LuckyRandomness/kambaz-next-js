@@ -73,7 +73,7 @@ export default function QuizDetails() {
                         </Row>
                         <Row>
                             <Col className="text-end"><b>Time Limit</b></Col>
-                            <Col>{quiz.timeLimit}</Col>
+                            <Col>{(quiz.timeLimit) ? <p>{quiz.timeLimitAmt} minutes</p> : <p>None</p>}</Col>
                         </Row>
                         <Row>
                             <Col className="text-end"><b>Multiple Attempts</b></Col>

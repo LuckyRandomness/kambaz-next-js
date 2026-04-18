@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "react-bootstrap";
 import DeleteDialog from "./DeleteDialog";
-import Link from "next/link";
 import PublishControls from "./PublishControls";
 export default function ControlButtons({ cid, quizId, deleteQuiz, togglePublishQuiz, published}: 
   { cid: string; quizId: string; deleteQuiz: ((quizId: string) => void ); togglePublishQuiz: ((courseId: string, quizId: string) => void ); published: boolean}) {
@@ -29,11 +28,10 @@ export default function ControlButtons({ cid, quizId, deleteQuiz, togglePublishQ
           <Dropdown>
             <DropdownToggle className="btn-light btn-sm"><IoEllipsisVertical className="m-3" onClick={handleShow} /></DropdownToggle>
             <DropdownMenu>
-              <DropdownItem><Link href={`/courses/${cid}/quizzes/${quizId}`}>Edit Quiz</Link></DropdownItem>
+              <DropdownItem href={`/courses/${cid}/quizzes/${quizId}`}>Edit Quiz</DropdownItem>
               <DropdownItem onClick={handleShow}>Delete Quiz</DropdownItem>
-              <DropdownItem onClick={() => togglePublishQuiz(cid, quizId)}>
-                {published ? <p>Unpublish Quiz</p> : <p>Publish Quiz</p>}
-              </DropdownItem>
+              {published ? <DropdownItem onClick={() => togglePublishQuiz(cid, quizId)}>Unpublish Quiz</DropdownItem> : 
+                <DropdownItem onClick={() => togglePublishQuiz(cid, quizId)}>Publish Quiz</DropdownItem>}
               <DropdownItem>Copy Quiz</DropdownItem>
               <DropdownItem>Sort Quiz</DropdownItem>
             </DropdownMenu>
