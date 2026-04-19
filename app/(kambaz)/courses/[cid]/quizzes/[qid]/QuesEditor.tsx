@@ -8,15 +8,16 @@ import {v4 as uuidv4} from "uuid";
 type QuizType = {
     _id: string,
     title: string,
+    due: string,
+    points: number,
     questionNum: number,
-    questions: [{
-        _id: string,
-        title: string,
-        question: string,
-        type: string,
-        points: any,
-        choices: ChoiceType[]
-}]
+    published: boolean,
+    type: string,
+    assignmentGroup: string,
+    shuffleAnswers: boolean,
+    timeLimit: boolean,
+    timeLimitAmt: number,
+    questions: QuestionType[]
 }
 
 type QuestionType = {
@@ -50,16 +51,12 @@ export default function QuesEditor({q, ques, setQuiz}:
                                 let updatedChoices = question.choices
                                 if(e.target.value == "True/False") {
                                     updatedChoices = [{_id: uuidv4(), text: "True", correct: true},
-                                        {_id: uuidv4(), text: "False", correct: false}
-                                    ]
+                                        {_id: uuidv4(), text: "False", correct: false}]
                                 } else if (e.target.value == "Fill In The Blank") {
-                                    updatedChoices = [{_id: uuidv4(), text: "New Answer", correct: true},
-                                        {_id: uuidv4(), text: "New Answer", correct: true}
-                                    ]
+                                    updatedChoices = [{_id: uuidv4(), text: "New Answer", correct: true}]
                                 } else {
                                     updatedChoices = [{_id: uuidv4(), text: "New Answer", correct: true},
-                                        {_id: uuidv4(), text: "New Answer", correct: false}
-                                    ]
+                                        {_id: uuidv4(), text: "New Answer", correct: false}]
                                 }
                                 setQuestion({...question, type: e.target.value, choices: updatedChoices});
                             }}>

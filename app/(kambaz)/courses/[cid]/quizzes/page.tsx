@@ -22,7 +22,20 @@ type QuizType = {
     points: number,
     questionNum: number,
     published: boolean,
-    questions: [{_id: string, title: string}]
+    questions: QuestionType[]
+}
+
+type QuestionType = {
+    _id: string,
+    title: string,
+    question: string,
+    type: string,
+    points: any,
+    choices: ChoiceType[]
+}
+
+type ChoiceType = {
+    _id: string, text: string, correct: boolean
 }
 
 export default function Quizzes() {

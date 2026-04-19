@@ -20,6 +20,20 @@ type QuizType = {
     timeLimitAmt: number,
     from: string,
     until: string,
+    questions: QuestionType[]
+}
+
+type QuestionType = {
+    _id: string,
+    title: string,
+    question: string,
+    type: string,
+    points: number,
+    choices: ChoiceType[]
+}
+
+type ChoiceType = {
+    _id: string, text: string, correct: boolean
 }
 
 export default function DetailsEditor({q, setQuiz, onCreateQuizForCourse, onUpdateQuizzes }: 
@@ -127,12 +141,12 @@ export default function DetailsEditor({q, setQuiz, onCreateQuizForCourse, onUpda
         </Form>
         <hr/>
         <div className="d-flex flex-row justify-content-end">
+            <Button variant="secondary" size="lg" className="me-1 float-end"> Cancel </Button>
+            {(qid === "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
+            onClick={() => onCreateQuizForCourse(false)}> Save </Button>)}
+            {(qid !== "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
+            onClick={() => onUpdateQuizzes(false)}> Save </Button>)}
             <Link href={`/courses/${ cid }/quizzes`}>
-                <Button variant="secondary" size="lg" className="me-1 float-end"> Cancel </Button>
-                {(qid === "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
-                onClick={() => onCreateQuizForCourse(false)}> Save </Button>)}
-                {(qid !== "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
-                onClick={() => onUpdateQuizzes(false)}> Save </Button>)}
                 {(qid === "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
                 onClick={() => onCreateQuizForCourse(true)}> Save & Publish </Button>)}
                 {(qid !== "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"

@@ -19,15 +19,8 @@ type QuizType = {
     assignmentGroup: string,
     shuffleAnswers: boolean,
     timeLimit: boolean,
-    timeLimitAmt: number
-    questions: [{
-        _id: string,
-        title: string,
-        question: string,
-        type: string,
-        points: any,
-        choices: ChoiceType[]
-    }]
+    timeLimitAmt: number,
+    questions: QuestionType[]
 }
 
 type QuestionType = {
@@ -59,7 +52,7 @@ export default function QuestionsEditor({q, setQuiz, onCreateQuizForCourse, onUp
         <div>
             {q.questions.map((ques) => 
             <div className="d-flex justify-content-center">
-                <QuesEditor q={q as QuizType} ques={ques as QuestionType} setQuiz={setQuiz}/>
+                <QuesEditor q={q} ques={ques as QuestionType} setQuiz={setQuiz}/>
             </div>) }
             <div className="d-flex justify-content-center m-2">
                 <Button className="btn-warning" onClick={() => setQuiz({...q, questions: [
@@ -81,7 +74,9 @@ export default function QuestionsEditor({q, setQuiz, onCreateQuizForCourse, onUp
                     {(qid === "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
                     onClick={() => onCreateQuizForCourse(false)}> Save </Button>)}
                     {(qid !== "new") && ((profile.role === "FACULTY" || profile.role === "ADMIN") && <Button variant="danger" size="lg" className="me-1 float-end"
-                    onClick={() => onUpdateQuizzes(false)}> Save </Button>)}
+                    onClick={() => {
+                        setQuiz({...q, questionNum: q.questions.length})
+                        onUpdateQuizzes(false)}}> Save </Button>)}
                 </Link>
             </div>
         </div>

@@ -1,4 +1,3 @@
-import { Button } from "react-bootstrap";
 import GreenCheckmark from "../modules/GreenCheckmark";
 import { RiProhibited2Line } from "react-icons/ri";
 import { IconContext } from "react-icons";

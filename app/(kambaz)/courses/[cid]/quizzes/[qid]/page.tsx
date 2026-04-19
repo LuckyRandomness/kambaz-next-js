@@ -1,6 +1,6 @@
 'use client'
 import { Tab, Tabs } from "react-bootstrap";
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import DetailsEditor from "./DetailsEditor";
 import QuestionsEditor from "./QuestionsEditor";
 import { useEffect, useState } from "react";
@@ -24,7 +24,20 @@ type QuizType = {
     timeLimitAmt: number,
     from: string,
     until: string,
-    questions: [{_id: string, title: string}]
+    questions: QuestionType[]
+}
+
+type QuestionType = {
+    _id: string,
+    title: string,
+    question: string,
+    type: string,
+    points: any,
+    choices: ChoiceType[]
+}
+
+type ChoiceType = {
+    _id: string, text: string, correct: boolean
 }
 
 export default function QuizEditor() {
@@ -64,13 +77,16 @@ export default function QuizEditor() {
         {(publish) ? ourQuiz = {...q, published: true} : ourQuiz = q}
         const quiz = await client.createQuizForCourse(cid as string, ourQuiz);
         dispatch(setQuizzes([...quizzes, quiz]));
+        if(!publish) { redirect(`/courses/${cid}/quizzes/${quiz._id}/details`) };
     };
     const onUpdateQuizzes = async (publish: boolean) => {
         let ourQuiz;
         {(publish) ? ourQuiz = {...q, published: true} : ourQuiz = q}
+        ourQuiz = {...q, questionNum: q.questions.length};
         await client.updateQuiz(cid as string, ourQuiz);
         const newQuizzes = quizzes.map((a: any) => a._id === q._id ? q : a );
         dispatch(setQuizzes(newQuizzes));
+        if(!publish) { redirect(`/courses/${cid}/quizzes/${q._id}/details`) };
     };   
     return (
         <div id="wd-quizzes-editor">

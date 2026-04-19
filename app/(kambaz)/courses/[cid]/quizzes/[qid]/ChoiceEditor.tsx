@@ -29,18 +29,28 @@ export default function ChoiceEditor({question, setQuestion}:
             {question.type == "Multiple Choice" && 
             <div>
                 {question.choices.map((choice) => (
-                    <div className="d-flex">
+                    <div className="d-flex m-2 justify-content-between">
                         {(choice.correct) ?
-                            <div className="d-flex">
+                            <div className="d-flex justify-content-start m-2" onClick={() => 
+                                    {let updatedChoices = [...question.choices]
+                                        updatedChoices.forEach((c) => {if (c._id == choice._id) {
+                                            c.correct = false
+                                        }})
+                                        setQuestion({
+                                        ...question,
+                                        choices:[
+                                            ...updatedChoices,
+                                        ]
+                                    })}}>
                                 <FormLabel>Correct Answer:</FormLabel>
                                 <IconContext.Provider value={{ color: "green" }}><FaArrowRight className="m-1"/></IconContext.Provider>
                             </div> :
-                            <div className="d-flex" onClick={
+                            <div className="d-flex m-2" onClick={
                                     () => 
                                     {let updatedChoices = [...question.choices]
-                                        updatedChoices.forEach((c) => {(c._id == choice._id) ?
-                                            c.correct = true :
-                                            c.correct = false})
+                                        updatedChoices.forEach((c) => {if (c._id == choice._id) {
+                                            c.correct = true
+                                        }})
                                         setQuestion({
                                         ...question,
                                         choices:[
@@ -49,9 +59,9 @@ export default function ChoiceEditor({question, setQuestion}:
                                     })}
                                 }>
                                 <FormLabel>Possible Answer:</FormLabel>
-                                <FaArrowRight/>
+                                <FaArrowRight className="m-1"/>
                             </div>}
-                        <FormControl onChange={(e) => {
+                        <FormControl className="w-50" onChange={(e) => {
                             let updatedChoices = [...question.choices]
                             updatedChoices.forEach((c) => {
                                 if (c._id == choice._id) {c.text = e.target.value}
@@ -62,7 +72,7 @@ export default function ChoiceEditor({question, setQuestion}:
                             })
                             }}defaultValue={choice.text}/>
                         <IconContext.Provider value={{ color: "red" }}>
-                            <FaTrash onClick={() => 
+                            <FaTrash className="m-1" onClick={() => 
                                 {setQuestion({
                                     ...question,
                                     choices:[
@@ -122,7 +132,7 @@ export default function ChoiceEditor({question, setQuestion}:
             {question.type == "Fill In The Blank" && 
             <div>
                 {question.choices.map((choice) => (
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between m-2">
                         <div className="d-flex">
                             <FormLabel>Possible Answer:</FormLabel>
                             <FormControl onChange={(e) => {
