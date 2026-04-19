@@ -34,5 +34,9 @@ export default function labs() {
            Github Repository </Link>
        </li>
      </ul>
+     <h3>Final Project:</h3>
+     <h4>Name: Kelsey Hammel</h4>
+     <h4>Section: 33211 SEC 02</h4>
+     <p>- Github Links in the Table of Contents to the left</p>
    </div>
 );}
