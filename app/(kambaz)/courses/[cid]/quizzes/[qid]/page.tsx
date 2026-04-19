@@ -74,7 +74,6 @@ export default function QuizEditor() {
     };   
     return (
         <div id="wd-quizzes-editor">
-            <p>{q.title}</p>
             <Tabs defaultActiveKey="details">
                 <Tab eventKey="details" title="Details">
                     <br/>

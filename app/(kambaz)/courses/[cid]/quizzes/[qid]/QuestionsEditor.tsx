@@ -26,7 +26,7 @@ type QuizType = {
         question: string,
         type: string,
         points: any,
-        choices: [{_id: string, text: string, correct: boolean}]
+        choices: ChoiceType[]
     }]
 }
 
@@ -36,7 +36,11 @@ type QuestionType = {
     question: string,
     type: string,
     points: number,
-    choices: [{_id: string, text: string, correct: boolean}]
+    choices: ChoiceType[]
+}
+
+type ChoiceType = {
+    _id: string, text: string, correct: boolean
 }
 
 export default function QuestionsEditor({q, setQuiz, onCreateQuizForCourse, onUpdateQuizzes }: 

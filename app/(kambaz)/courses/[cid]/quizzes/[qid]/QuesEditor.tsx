@@ -1,8 +1,9 @@
 import { Dispatch, useState } from "react";
 import { Button, Form, FormControl, FormLabel, FormSelect } from "react-bootstrap";
 import { IconContext } from "react-icons";
-import { FaArrowRight, FaPencil, FaTrash } from "react-icons/fa6";
+import { FaPencil, FaTrash } from "react-icons/fa6";
 import ChoiceEditor from "./ChoiceEditor";
+import {v4 as uuidv4} from "uuid";
 
 type QuizType = {
     _id: string,
@@ -14,7 +15,7 @@ type QuizType = {
         question: string,
         type: string,
         points: any,
-        choices: [{_id: string, text: string, correct: boolean}]
+        choices: ChoiceType[]
 }]
 }
 
@@ -24,13 +25,17 @@ type QuestionType = {
     question: string,
     type: string,
     points: any,
-    choices: [{_id: string, text: string, correct: boolean}]
+    choices: ChoiceType[]
+}
+
+type ChoiceType = {
+    _id: string, text: string, correct: boolean
 }
 
 export default function QuesEditor({q, ques, setQuiz}: 
     {q: QuizType; ques: QuestionType; setQuiz: Dispatch<any>;}) {
     const [editing, setEditing] = useState(true);
-    const [question, setQuestion] = useState<QuestionType>({
+    const [question, setQuestion] = useState({
         ...ques
     });
     return(
@@ -41,14 +46,30 @@ export default function QuesEditor({q, ques, setQuiz}:
                         <div className="d-flex justify-content-between">
                             <FormControl className="m-1" id="wd-question-title" defaultValue={question.title} 
                             onChange={(e) => setQuestion({...question, title: e.target.value })}/><br />
-                            <FormSelect className="m-1" id="wd-question-type" onChange={(e) => setQuestion({...question, type: e.target.value})}>
-                                {(ques.type == "Multiple Choice") ? 
+                            <FormSelect className="m-1" id="wd-question-type" onChange={(e) => {
+                                let updatedChoices = question.choices
+                                if(e.target.value == "True/False") {
+                                    updatedChoices = [{_id: uuidv4(), text: "True", correct: true},
+                                        {_id: uuidv4(), text: "False", correct: false}
+                                    ]
+                                } else if (e.target.value == "Fill In The Blank") {
+                                    updatedChoices = [{_id: uuidv4(), text: "New Answer", correct: true},
+                                        {_id: uuidv4(), text: "New Answer", correct: true}
+                                    ]
+                                } else {
+                                    updatedChoices = [{_id: uuidv4(), text: "New Answer", correct: true},
+                                        {_id: uuidv4(), text: "New Answer", correct: false}
+                                    ]
+                                }
+                                setQuestion({...question, type: e.target.value, choices: updatedChoices});
+                            }}>
+                                {(question.type == "Multiple Choice") ? 
                                     <option selected value="Multiple Choice">Multiple Choice</option> : 
                                     <option value="Multiple Choice">Multiple Choice</option>}
-                                {(ques.type == "True/False") ? 
+                                {(question.type == "True/False") ? 
                                     <option selected value="True/False">True/False</option> : 
                                     <option value="True/False">True/False</option>}
-                                {(ques.type == "Fill In The Blank") ? 
+                                {(question.type == "Fill In The Blank") ? 
                                     <option selected value="Fill In The Blank">Fill In The Blank</option> : 
                                     <option value="Fill In The Blank">Fill In The Blank</option>}
                             </FormSelect>
@@ -57,9 +78,9 @@ export default function QuesEditor({q, ques, setQuiz}:
                             onChange={(e) => setQuestion({...question, points: e.target.value })} />
                         </div>
                         <hr/>
-                        {(ques.type == "Multiple Choice") ? 
+                        {(question.type == "Multiple Choice") ? 
                             <p>Enter your question and multiple answers, then select the one correct answer.</p> :
-                            (ques.type == "True/False") ? <p>Enter your question text, then select if True or False is the correct answer.</p> :
+                            (question.type == "True/False") ? <p>Enter your question text, then select if True or False is the correct answer.</p> :
                             <p>Enter your question text, then define all possible correct answers for the blank. Students will see the question followed by a small text box to type their answer.</p>}
                         <div>
                             <b>Question:</b>
@@ -69,7 +90,7 @@ export default function QuesEditor({q, ques, setQuiz}:
                         </div>
                         <div>
                             <b>Answers:</b>
-                            <ChoiceEditor ques={ques} question={question} setQuestion={setQuestion}/>
+                            <ChoiceEditor question={question} setQuestion={setQuestion}/>
                         </div>
                     </Form>
                     <hr/>
@@ -101,7 +122,7 @@ export default function QuesEditor({q, ques, setQuiz}:
             <FaPencil className="m-2" onClick={() => setEditing(!(editing))}/>
             <IconContext.Provider value={{ color: "red" }}><FaTrash className="m-2" onClick={() => setQuiz({
                 ...q,
-                questions: q.questions.filter((qs) => qs._id != ques._id)
+                questions: q.questions.filter((qs) => qs._id != question._id)
             })}/></IconContext.Provider>
         </div>
     ); 

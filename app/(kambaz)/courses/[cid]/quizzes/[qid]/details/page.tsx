@@ -48,7 +48,7 @@ export default function QuizDetails() {
                 <div>
                     <Container className="border border-secondary">
                         <div className="d-flex justify-content-center">
-                            <Button className="m-1 btn-light btn-outline-dark">Preview</Button>
+                            <Button className="m-1 btn-light btn-outline-dark" href={`/courses/${cid}/quizzes/${qid}/quiz`}>Preview</Button>
                             <Button className="m-1 btn-light btn-outline-dark"> 
                                 <Link href={`/courses/${cid}/quizzes/${qid}`}>
                                     <FaPencil/> Edit 
