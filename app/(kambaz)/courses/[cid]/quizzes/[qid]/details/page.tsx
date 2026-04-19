@@ -69,7 +69,7 @@ export default function QuizDetails() {
                         </Row>
                         <Row>
                             <Col className="text-end"><b>Shuffle Answers</b></Col>
-                            <Col>{quiz.shuffleAnswers}</Col>
+                            <Col>{(quiz.shuffleAnswers) ? <p>Yes</p> : <p>No</p>}</Col>
                         </Row>
                         <Row>
                             <Col className="text-end"><b>Time Limit</b></Col>
@@ -77,7 +77,7 @@ export default function QuizDetails() {
                         </Row>
                         <Row>
                             <Col className="text-end"><b>Multiple Attempts</b></Col>
-                            <Col>{quiz.multipleAttempts}</Col>
+                            <Col>{quiz.multipleAttempts}X</Col>
                         </Row>
                         <Row>
                             <Col className="text-end"><b>Show Correct Answers</b></Col>

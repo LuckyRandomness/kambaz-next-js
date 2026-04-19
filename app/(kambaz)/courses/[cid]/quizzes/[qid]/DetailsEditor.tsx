@@ -1,15 +1,14 @@
 import { RootState } from "@/app/(kambaz)/store";
-import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { redirect, useParams } from "next/navigation";
+import { Dispatch, useEffect, useState } from "react";
 import { Button, Col, Form, FormCheck, FormControl, FormLabel, FormSelect, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { setQuizzes } from "../reducer";
-import * as client from "../client";
+import { useSelector } from "react-redux";
 import Link from "next/link";
 
 type QuizType = {
     _id: string,
     title: string,
+    description: string,
     due: string,
     points: number,
     questionNum: number,
@@ -18,59 +17,23 @@ type QuizType = {
     assignmentGroup: string,
     shuffleAnswers: boolean,
     timeLimit: boolean,
-    timeLimitAmt: number
+    timeLimitAmt: number,
+    from: string,
+    until: string,
 }
 
-export default function DetailsEditor({ cid, qid }: { cid: string; qid: string;}) {
-    const { quizzes } = useSelector((state: RootState) => state.quizzesReducer); 
-    const dispatch = useDispatch();  
-    const [q, setQuiz] = useState<any>({
-            "title": "New Quiz",
-            "description" : "NEW DESCRIPTION",
-            "course" : cid,
-            "type": "Graded Quiz",
-            "assignmentGroup": "Quizzes",
-            "shuffleAnswers": true,
-            "published": false,
-            "timeLimit": true,
-            "timeLimitAmt": 20,
-    });
+export default function DetailsEditor({q, setQuiz, onCreateQuizForCourse, onUpdateQuizzes }: 
+    {q: QuizType; setQuiz: Dispatch<any>; onCreateQuizForCourse: ((publish: boolean) => Promise<void>); onUpdateQuizzes: ((publish: boolean) => Promise<void>);}) {
+    const {cid, qid} = useParams();
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const [profile, setProfile] = useState<any>({});
     const fetchProfile = () => {
         if (!currentUser) return redirect("/account/signin");
         setProfile(currentUser);
         };
-    const fetchQuizzes = async () => {
-        const quizzes = await client.findQuizzesForCourse(cid);
-        dispatch(setQuizzes(quizzes));
-    };
-    const fetchOurQuiz = async () => {
-        if (qid != "new") {
-            const allQuizzes = await client.findQuizzesForCourse(cid);
-            const ourQuiz = allQuizzes.find((qz: QuizType) => (qz._id) == qid);
-            setQuiz(ourQuiz);
-        }
-    };
     useEffect(() => {
         fetchProfile();
-        fetchOurQuiz();
-        fetchQuizzes();
-        }, []);
-    const onCreateQuizForCourse = async (publish: boolean) => {
-        if (!cid) return;
-        let ourQuiz;
-        {(publish) ? ourQuiz = {...q, published: true} : ourQuiz = q}
-        const quiz = await client.createQuizForCourse(cid, ourQuiz);
-        dispatch(setQuizzes([...quizzes, quiz]));
-    };
-    const onUpdateQuizzes = async (publish: boolean) => {
-        let ourQuiz;
-        {(publish) ? ourQuiz = {...q, published: true} : ourQuiz = q}
-        await client.updateQuiz(cid, ourQuiz);
-        const newQuizzes = quizzes.map((a: any) => a._id === q._id ? q : a );
-        dispatch(setQuizzes(newQuizzes));
-    };
+        }, []); 
     return(
         <div>
         <Form>

@@ -21,7 +21,8 @@ type QuizType = {
     due: string,
     points: number,
     questionNum: number,
-    published: boolean
+    published: boolean,
+    questions: [{_id: string, title: string}]
 }
 
 export default function Quizzes() {
