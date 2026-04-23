@@ -65,15 +65,15 @@ export default function QuizDetails() {
     return(
         <div className="d-flex justify-content-center">
             {(profile.role === "FACULTY" || profile.role === "ADMIN") ? (
-                <div>
-                    <Container className="border border-secondary">
-                        <div className="d-flex justify-content-center">
+                <div className="w-50">
+                    <div className="border border-secondary">
+                        <div className="d-flex justify-content-center border p-2">
                             <Button className="m-1 btn-light btn-outline-dark" href={`/courses/${cid}/quizzes/${qid}/quiz`}>Preview</Button>
                             <Link href={`/courses/${cid}/quizzes/${qid}`}>
                                 <Button className="m-1 btn-light btn-outline-dark"><FaPencil/> Edit </Button>
                             </Link>
                         </div>
-                        <h3>{quiz.title}</h3>
+                        <h3 className="m-3">{quiz.title}</h3>
                         <Row>
                             <Col className="text-end"><b>Quiz Type</b></Col>
                             <Col>{quiz.type}</Col>
@@ -122,7 +122,7 @@ export default function QuizDetails() {
                                 <Button className="mb-3 btn-danger m-1" onClick={togglePublishQuiz}>Unpublish</Button> :
                                 <Button className="mb-3 btn-success m-1" onClick={togglePublishQuiz}>Publish</Button>}
                         </div>
-                    </Container> <br/>   
+                    </div> <br/>   
                 </div>
             ) : (
                 <Button className="btn-light" href={`/courses/${cid}/quizzes/${qid}/quiz`}>Take Quiz</Button>
